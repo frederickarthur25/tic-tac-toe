@@ -4,15 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <title>Frontend Mentor | Tic Tac Toe</title>
 </head>
 <body>
 
   <!-- New game menu start -->
+    <div id="main-container">
+        <div id="image">
+          <img id="logo" src="logo.svg">
+        </div>
+        <div id="mid-portion">
+          <div id="player"><p id="player-1">Pick player 1's mark</p></div>
+            <div id="inner">
+              <div id="inner-inner">
 
-  Pick player 1's mark
+              </div>
+            </div>
+        </div>
+    
+  
   Remember: X goes first
 
   New Game (vs CPU)
@@ -38,10 +55,11 @@
 
   Quit
   Next round
-  No, cancel
+  No, cancel 
   Yes, restart
 
   <!-- Game board end -->
 
+</div>
 </body>
 </html>
