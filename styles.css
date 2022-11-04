@@ -57,10 +57,100 @@ body {
 
 #player-1 {
     text-align: center;
+    text-transform: uppercase;
     font-family: 'Outfit';
     font-weight: 700;
     font-size: 16px;
     line-height: 20.16px;
     letter-spacing: 1px;
     color: #A8BFC9;
+}
+
+#icon-x {
+    filter: grayscale(80%);
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    top: 20px;
+    left: 107px;
+}
+
+#inner-inner-2 {
+    height: 54px;
+    width: 198px;
+    position: absolute;
+    left: 205px;
+    top: 10px;
+    border-radius: 10px;
+    background-color: #A8BFC9;
+}
+
+#icon-o {
+    filter: invert(100%);
+    height: 31.74px;
+    width: 31.74px;
+    position: absolute;
+    left: 80px;
+    top: 10px;
+
+}
+
+#player-2 {
+    position: absolute;
+    width: 193px;
+    height: 18px;
+    top: 157px;
+    left: 135px;
+}
+
+#player-1-1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Outfit';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17.64px;
+    letter-spacing: 0.88px;
+    color: #A8BFC9;
+    position:absolute;
+}
+
+#cpu {
+    height: 67px;
+    width: 460px;
+    border-radius: 15px;
+    position: absolute;
+    left: 445px;
+    top: 560px;
+    background-color: #F2B137;
+    text-transform: uppercase;
+    border-style: none;
+    font-family: 'Outfit';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 1.25px;
+    text-align: center;
+    color: #1A2A33;
+    box-shadow:inset 0px -8px 0px 0px #CC8B13;
+}
+
+#player-com {
+    height: 67px;
+    width: 460px;
+    border-radius: 15px;
+    position: absolute;
+    left: 445px;
+    top: 660px;
+    background-color: #31C3BD;
+    text-transform: uppercase;
+    border-style: none;
+    font-family: 'Outfit';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 1.25px;
+    text-align: center;
+    color: #1A2A33;
+    box-shadow:inset 0px -8px 0px 0px #118C87;
 }
