@@ -27,7 +27,7 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    opacity: 1;
+    opacity: 0;
 }
 
 .main-main.hide {
@@ -212,15 +212,12 @@ body {
 }
 
 .play-board {
-    opacity: 0;
-    pointer-events: none;
+    cursor: pointer; 
     position: relative;
+    display: show;
 }
 
-.play-board.show {
-    opacity: 1;
-    pointer-events: auto;
-}
+
 
 .play-board .details {
     display: flex;
@@ -361,8 +358,8 @@ body {
     margin-top: 40px;
 }
 
-.play-area .box:hover {
-    cursor: pointer;
+.box {
+    
     transform: scale(0.96);
 }
 
