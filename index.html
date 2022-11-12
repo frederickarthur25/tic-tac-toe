@@ -15,14 +15,14 @@
   
 </head>
 <body>
-
-  <!-- New game menu start -->
     <div id="main-container">
+      <!--Starting Page-->
+      <div class="main-main">
         <div id="image">
           <img id="logo" src="logo.svg">
         </div>
         <div id="mid-portion">
-          <div id="player"><p id="player-1">Pick player 1's mark</p></div>
+          <div id="player"><p>Pick player 1's mark</p></div>
             <div id="inner">
               <div id="inner-inner">
                 <img id="icon-x" src="icon-x.svg">
@@ -31,64 +31,94 @@
                 </div>
               </div>
             </div>
-            <div id="player-2"><p id="player-1-1">Remember: X goes first</p></div>
+            <div id="player-2"><p>Remember: X goes first</p></div>
         </div>
-            <div>
-              <button id="cpu">New Game (vs CPU)</button>
-              <button id="player-com">New Game (vs player)</button>
+          <div class="btn">
+              <button id="cpu" class="choose">New Game (vs CPU)</button>
+              <button id="player-com" class="choose">New Game (vs player)</button>
             </div>
-</div>
+      </div>
+        
+      <!--Main Page-->
+      <div class="play-board">
+        <div class="cont">
+          <div class="details">
+            <div><img class="logo" src="logo.svg" alt="project logo"></div>
+            <div class="x-turn">
+              <button class="btn"><img class="img" src="icon-x.svg" alt=""><p class="parag">TURN</p></button>
+            </div>
+            <div class="restart-btn">
+              <button class="res"><img class="restart-img" src="icon-restart.svg"></button>
+            </div>
+            </div>
+          </div>
+        
+          <div class="play-area">
+            <section>
+              <span class="box"></span>
+              <span class="box"></span>
+              <span class="box"></span>
+            </section>
+            <section>
+              <span class="box"></span>
+              <span class="box"></span>
+              <span class="box"></span>
+            </section>
+            <section>
+              <span class="box"></span>
+              <span class="box"></span>
+              <span class="box"></span>
+            </section>
+          </div>
+          <div class="marks">
+            <section>
+              <span class="box1"><p class="fig">X (YOU)</p><p class="num">14</p></span>
+              <span class="box2"><p class="fig">TIES</p><p class="num">32</p></span>
+              <span class="box3"><p class="fig">O (CPU)</p><p class="num">11</p></span>
+            </section>
+          </div>
+        </div>
+      
+        <div class="popup">
+          <div class="pop">
+            <div class="para"><p>OH NO, YOU LOST....</p></div>
+            <div class="mid"><img src="icon-o.svg"><p>TAKE NEXT ROUND</p></div>
+            <div class="btn">
+              <button class="quit">QUIT</button>
+              <button class="next">NEXT ROUND</button>
+            </div>
+          </div> 
+        </div>
 
-<div class="play-board">
-  <div class="details">
-    <div class="cpu"></div>
-    <div class="cpu"></div>
-  </div>
+        <div class="popup-x">
+          <div class="pop">
+            <div class="para"><p>YOU WON!</p></div>
+            <div class="mid"><img src="icon-x.svg"><p>TAKE NEXT ROUND</p></div>
+            <div class="btn">
+              <button class="quit">QUIT</button>
+              <button class="next">NEXT ROUND</button>
+            </div>
+          </div> 
+        </div>
 
-  <div class="play-area">
-    <section>
-      <span class="box 1"></span>
-      <span class="box 2"></span>
-      <span class="box 3"></span>
-    </section>
-    <section>
-      <span class="box 4"></span>
-      <span class="box 5"></span>
-      <span class="box 6"></span>
-    </section>
-    <section>
-      <span class="box 7"></span>
-      <span class="box 8"></span>
-      <span class="box 9"></span>
-    </section>
-  </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-<script src="script.js"></script>
-</body>
-</html>
+        <div class="restart">
+          <div class="pop">
+            <div class="para"><p>RESTART GAME?</p></div>
+            <div class="btn">
+              <button class="quit">NO, CANCEL</button>
+              <button class="next">YES, RESTART</button>
+            </div>
+          </div> 
+        </div>
 
-<!-- New game menu end -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+      <script src="script.js"></script>
+    </div>
+    
+      </body>
+      </html>
+        
+      
 
-  <!-- Game board start -->
 
-  <!-- x/o icon --> turn
 
-  X (You) <!-- Your score -->
-  Ties <!-- Ties score -->
-  X (CPU) <!-- CPU score -->
-
-  Oh no, you lost
-  You won!
-  Player <!-- 1/2 --> wins!
-
-  <!-- x/o icon --> takes the round
-  Round tied
-  Restart game?
-
-  Quit
-  Next round
-  No, cancel 
-  Yes, restart
-
-  <!-- Game board end -->
