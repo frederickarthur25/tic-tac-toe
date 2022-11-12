@@ -27,13 +27,6 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0;
-}
-
-.main-main.hide {
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease-in-out;
 }
 
 #image {
@@ -214,7 +207,7 @@ body {
 .play-board {
     cursor: pointer; 
     position: relative;
-    display: show;
+    display: none;
 }
 
 
@@ -433,14 +426,14 @@ body {
     display: none;
 }
 
-.popup .pop {
+.popup .lost-pop {
     position: absolute;
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
 }
 
-.popup .para {
+.popup .lost-para {
     font-family: Outfit;
     font-size: 16px;
     font-weight: 700;
@@ -451,11 +444,11 @@ body {
     margin-bottom: 10px;
 }
 
-.popup .mid {
+.popup .lost-mid {
     display: flex;
 }
 
-.popup .mid p{
+.popup .lost-mid p{
     font-family: Outfit;
     font-size: 40px;
     font-weight: 700;
@@ -472,13 +465,17 @@ body {
     width: 64px;
 }
 
-.popup .btn {
+.popup .lost-btn {
     display: flex;
     gap: 20px;
     margin-top: 40px;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, -50%);
 }
 
-.popup .btn .quit{
+.popup .lost-btn .lost-quit{
     height: 52px;
     width: 76px;
     border-radius: 10px;
@@ -493,7 +490,7 @@ body {
     box-shadow:inset 0px -4px 0px 0px #6B8997;
 }
 
-.popup .btn .next {
+.popup .lost-btn .lost-next {
     height: 52px;
     width: 146px;
     border-radius: 10px;
@@ -519,14 +516,14 @@ body {
     display: none;
 }
 
-.popup-x .pop {
+.popup-x .win-pop {
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 50%;
     transform: translate(-50%, -50%);
 }
 
-.popup-x .para {
+.popup-x .win-para {
     font-family: Outfit;
     font-size: 16px;
     font-weight: 700;
@@ -537,11 +534,12 @@ body {
     margin-bottom: 10px;
 }
 
-.popup-x .mid {
+.popup-x .win-mid {
     display: flex;
+    margin-bottom: -30px;
 }
 
-.popup-x .mid p{
+.popup-x .win-mid p{
     font-family: Outfit;
     font-size: 40px;
     font-weight: 700;
@@ -558,13 +556,15 @@ body {
     width: 64px;
 }
 
-.popup-x .btn {
+.popup-x .win-btn {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 20px;
     margin-top: 40px;
 }
 
-.popup-x .btn .quit{
+.popup-x .win-btn .win-quit{
     height: 52px;
     width: 76px;
     border-radius: 10px;
@@ -579,7 +579,7 @@ body {
     box-shadow:inset 0px -4px 0px 0px #6B8997;
 }
 
-.popup-x .btn .next {
+.popup-x .win-btn .win-next {
     height: 52px;
     width: 146px;
     border-radius: 10px;
@@ -606,14 +606,14 @@ body {
     display: none;
 }
 
-.restart .pop {
+.restart .restart-pop {
     position: absolute;
     left: 50%;
     top: 35%;
     transform: translate(-50%, -50%);
 }
 
-.restart .para {
+.restart .restart-para {
     font-family: Outfit;
     font-size: 40px;
     font-weight: 700;
@@ -623,15 +623,18 @@ body {
     color: #A8BFC9;
 }
 
-.restart .btn {
+.restart .restart-bt {
     display: flex;
     gap: 20px;
-    margin-top: 50px;
+    margin-top: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
 
-.restart .btn .quit{
+.restart .restart-bt .restart-quit{
     height: 52px;
     width: 139px;
     border-radius: 10px;
@@ -646,7 +649,7 @@ body {
     box-shadow:inset 0px -4px 0px 0px #6B8997;
 }
 
-.restart .btn .next {
+.restart .restart-bt .restart-next {
     height: 52px;
     width: 151px;
     border-radius: 10px;
