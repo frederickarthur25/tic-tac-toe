@@ -1,136 +1,65 @@
 //O= <img src="icon-o.svg">
 //X= <img src="icon-x.svg">
+//O= <img src="icon-o-outline.svg">
+//X= <img src="icon-x-outline.svg">
 
 
 //Selecting "Starting Page" Tags
-let mainMain = document.querySelector(".main-main")
-let choose = document.querySelectorAll(".choose")
-
-//Selecting "Main Page" Tags
-let playBoard = document.querySelector(".play-board")
-let box = document.querySelectorAll(".box")
-let marks = document.querySelector(".marks")
-let restartBtn = document.querySelector(".restart-btn")
-let playArea = document.querySelector(".play-area")
-
-//Selecting "Outcome" Tags
-let popUp = document.querySelector(".popup")
-let lostPop = document.querySelector(".lost-pop")
-let lostPara = document.querySelector(".lost-para")
-let lostMid = document.querySelector(".lost-mid")
-let lostBtn = document.querySelector(".lost-btn")
-let lostQuit = document.querySelector(".lost-quit")
-let lostNext = document.querySelector(".lost-next")
-let popUpX = document.querySelector(".popup-x")
-let winPop = document.querySelector(".win-pop")
-let winPara = document.querySelector(".win-para")
-let winMid = document.querySelector(".win-mid")
-let winBtn = document.querySelector(".win-btn")
-let winQuit = document.querySelector(".win-quit")
-let winNext = document.querySelector(".win-next")
-let restart = document.querySelector(".restart")
-let restartPop = document.querySelector(".restart-pop")
-let restartPara = document.querySelector(".restart-para")
-let restartBt = document.querySelector(".restart-bt")
-let restartQuit = document.querySelector(".restart-quit")
-let restartNext = document.querySelector(".restart-next")
-
-//How Can We Change Turns
-//False => X's Turn
-//True => O's Turn 
-let changeTurn = null;
+const mainMain = document.querySelector(".main-main"),
+playButton = document.querySelector(".play"),
+botButton = document.querySelector(".bot"),
+playBoard = document.querySelector(".play-board")
+marks = document.querySelector(".marks"),
+btn = document.querySelector(".btn"),
+allBox = document.querySelectorAll("section span");
 
 
-
-//Select What You Want To Be
-//X or O
-choose.forEach(chooseNow =>{
-    chooseNow.addEventListener("click" , ()=>{
-        if(chooseNow.id === "cpu"){
-            changeTurn = false;
-            //console.log(changeTurn)
-        }else{
-            changeTurn = true;
-            //console.log(changeTurn)
-        } 
-        mainMain.style.display ="none"
-        playBoard.style.display = "block"
-        marks.style.display = "none"
-        restartBtn.style.display = "none"
-    })
-});
-
-
-box.forEach(items =>{
-    items.addEventListener("click" , ()=>{
-        //Add "X" Icon If "ChangeTurn" = False
-        //Add "O" Icon If "ChangeTurn" = True
-        if(changeTurn == false){
-            items.innerHTML = `<img src="icon-x.svg">`
-            items.id ="X"
-
-            //Change The "ChangeTurn" Value False Into True
-            changeTurn = true;
-        }else{
-            items.innerHTML = `<img src="icon-o.svg">`
-            items.id ="O"
-            //Change The "ChangeTurn" Value False Into True
-            changeTurn = false;
-        }
-        winningFunc();
-        drawFunc()
-    })
-})
-
-
-
+window.onload =()=>{ //once windows load
+for (let i = 0; i < allBox.length; i++) { //add onclick attribute in all available section's span
+    allBox[i].setAttribute("onclick", "clickedBox(this)");
     
-//All winning combinations
-let winningCombinations = [
-    [0,1,1],
-    [0,3,6], 
-    [2,5,6], 
-    [6,7,8], 
-    [3,4,5], 
-    [1,4,7], 
-    [0,4,8], 
-    [2,4,6]
-]
-
-let winningFunc = ()=>{
-    for (let a = 0; a <= 7; a++){
-        let b = winningCombinations[a];
-        //console.log(b)
-
-        if(box[b[0]].id == "" || box[b[1]].id == "" || box[b[2]].id == ""){
-            continue;
-        }else if(box[b[0]].id == "X" && box[b[1]].id == "X" && box[b[2]].id == "X"){
-            //console.log("Player is the Winner")
-
-            //Add Outcome
-            playBoard.style.opacity = "0.5"
-            popUpX.style.display = "block"
-        }else if(box[b[0]].id == "O" && box[b[1]].id == "O" && box[b[2]].id == "O"){
-           // console.log("cpu is the Winner")
-
-           playBoard.style.opacity = "0.2"
-            popUp.style.display = "block"
-        }
-        else{
-            continue;
-        }
-    }
 }
 
-//Draw Function 
-let drawFunc = ()=> {
-    if(box[0].id != "" && box[1].id != "" &&
-    box[2].id != "" && box[3].id != "" &&
-    box[4].id != "" && box[5].id != "" &&
-    box[6].id != "" && box[7].id != "" && box[8].id != ""){
-
-            //Add Outcome
-            playBoard.style.opacity = "0.5"
-            restart.style.display = "block"
+    botButton.onclick = ()=>{
+        mainMain.classList.add("hide"); //hide the main container
+        playBoard.style.display = "block"; //show the main container
+        marks.style.display = "none" //hide the marks section
     }
+}  
+
+
+//user clicked function
+function clickedBox(element){
+    //console.log(element);
+    if(btn.classList.contains("botButton")){
+        element.innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
+    }else{
+        element.innerHTML =  `<img src="icon-x.svg">` ////adding cross icon tag inside user clicked element
+    }
+    element.style.pointerEvents = "none"; //Once selected cannot be selected again
+    let randomDelayTime = ((Math.random() * 1000) + 200).toFixed(); //generating random delay so bot will delay randomly to selct box
+    setTimeout(()=>{
+        robot(); //CALLING BOT FUNTION
+    }, randomDelayTime); //passing random delay time
+}
+
+//bot click function
+function robot(){
+    let array = []; 
+    for (let i = 0; i < allBox.length; i++) {
+        if(allBox[i].childElementCount === 0){ //if span has no any child element
+             array.push(i);// insserting unclicked or unselected boxes inside array means that span has no children
+             //console.log(i + " " + "has no child")
+        }
+    }
+    let randomBox = array[(Math.floor(Math.random() * array.length))]; //getting random index from array so bot will select random unselected
+    //console.log(randomBox);
+    if(array.length > 0){
+        if(btn.classList.contains("botButton")){
+            allBox[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
+        }else{
+            allBox[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
+        }
+    } 
+    allBox[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
 }
