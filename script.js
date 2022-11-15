@@ -11,14 +11,14 @@ let lostPara = document.querySelector(".lost-para")
 let lostMid = document.querySelector(".lost-mid")
 let lostBtn = document.querySelector(".lost-btn")
 let lostQuit = document.querySelector(".lost-quit")
-let lostNext = document.querySelector(".lost-next")
+let lostNext = document.getElementById(".lost-next")
 let popUpX = document.querySelector(".popup-x")
 let winPop = document.querySelector(".win-pop")
 let winPara = document.querySelector(".win-para")
 let winMid = document.querySelector(".win-mid")
 let winBtn = document.querySelector(".win-btn")
-let winQuit = document.querySelector(".win-quit")
-let winNext = document.querySelector(".win-next")
+let winQuit = document.getElementById(".win-quit")
+let winNext = document.getElementById(".win-next")
 let restart = document.querySelector(".restart")
 let restartPop = document.querySelector(".restart-pop")
 let restartPara = document.querySelector(".restart-para")
@@ -27,44 +27,70 @@ let restartQuit = document.querySelector(".restart-quit")
 let restartNext = document.querySelector(".restart-next")
 let restartBtn = document.querySelector(".restart-btn")
 let res = document.querySelector(".res")
+let choose = document.querySelectorAll(".choose")
+let num1 = document.querySelector(".num1")
+let num2 = document.querySelector(".num2")
+let num3 = document.querySelector(".num3")
 
 //Selecting "Starting Page" Tags
-const mainMain = document.querySelector(".main-main"),
+let mainMain = document.querySelector(".main-main"),
 playButton = document.querySelector(".play"),
 botButton = document.querySelector(".bot"),
 playBoard = document.querySelector(".play-board")
+playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section span");
+let box = document.querySelectorAll(".box")
+
+let changeTurn = null;
 
 
 window.onload =()=>{ //once windows load
-for (let i = 0; i < allBox.length; i++) { //add onclick attribute in all available section's span
-    allBox[i].setAttribute("onclick", "clickedBox(this)");
+for(let i = 0; i < box.length; i++) { //add onclick attribute in all available section's span
+    box[i].setAttribute("onclick", "clickedBox(this)");
     
 }
-
-    playButton.onclick = ()=>{
+    botButton.onclick = ()=>{
         mainMain.classList.add("hide"); //hide the main container
         playBoard.style.display = "block"; //show the main container
-        marks.style.display = "none" //hide the marks section
+        marks.style.display = "block" //hide the marks section
     }
+    res.onclick = () => {
+        window.location.reload(1)
+    }
+} 
 
-    restartBtn.onclick = () => {
-        playBoard.classList.remove("show");
-        marksSection.classList.remove("show");
-        mainMain.classList.remove("hide");
-    }
-}  
+box.forEach(items => {
+    items.addEventListener("mouseenter", () => {
+        if(changeTurn !== true){
+            items.innerHTML = `<img src="icon-x-outline.svg">`
+        }else{
+            items.innerHTML = `<img src="icon-o-outline.svg">`
+            changeTurn = false;
+        }
+    })
+})
+
+box.forEach(items => {
+    items.addEventListener("mouseleave", () => {
+        if(changeTurn === true){
+            items.innerHTML = ``
+        }else{
+            items.innerHTML = ``
+        }
+    })
+})
 
 let playerSign = "X"; //suppose player will be X
 let  runBot = true;
 
 
+
 //user clicked function
 function clickedBox(element){
     //console.log(element);
-    if(btn.classList.contains("playButton")){
+    if(btn.classList.contains("botButton")){
         element.innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
         playerSign = "O"
         element.setAttribute("id", playerSign);
@@ -88,28 +114,28 @@ function robot(runBot){
     if(runBot){ //if  runBot is true then run the following code
         let playerSign = "O"
     let array = []; 
-    for (let i = 0; i < allBox.length; i++) {
-        if(allBox[i].childElementCount === 0){ //if span has no any child element
-             array.push(i);// insserting unclicked or unselected boxes inside array means that span has no children
+    for (let i = 0; i < box.length; i++) {
+        if(box[i].childElementCount === 0){ //if span has no any child element
+             array.push(i);// inserting unclicked or unselected boxes inside array means that span has no children
              //console.log(i + " " + "has no child")
         }
     }
     let randomBox = array[(Math.floor(Math.random() * array.length))]; //getting random index from array so bot will select random unselected
     //console.log(randomBox);
     if(array.length > 0){
-        if(btn.classList.contains("playButton")){
-            allBox[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
-            allBox[randomBox].setAttribute("id", playerSign);
+        if(btn.classList.contains("botButton")){
+           box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
+            box[randomBox].setAttribute("id", playerSign);
             playerSign = "X"
         }else{
             playBoard.style.pointerEvents = "auto"
-            allBox[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
-            allBox[randomBox].setAttribute("id", playerSign);
+            box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
+            box[randomBox].setAttribute("id", playerSign);
         }
     } 
     winningFunc(); // calling winner function
     drawFunc()
-    allBox[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
+    box[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
     }
 }
 
@@ -126,41 +152,47 @@ let winningCombinations = [
     [2,4,6],
 ]
 
+//Winning function for user and bot
 let winningFunc = ()=>{
     for (let a = 0; a <= 7; a++){
         let b = winningCombinations[a];
         //console.log(b)
 
-        if(allBox[b[0]].id == "" || allBox[b[1]].id == "" || allBox[b[2]].id == ""){
+        if(box[b[0]].id == "" || box[b[1]].id == "" || box[b[2]].id == ""){
             continue;
-        }else if(allBox[b[0]].id == "X" && allBox[b[1]].id == "X" && allBox[b[2]].id == "X"){
+        }else if(box[b[0]].id == "X" && box[b[1]].id == "X" && box[b[2]].id == "X"){
             //console.log("Player is the Winner")
 
             //Add Outcome
             playBoard.style.opacity = "0.5"
             popUpX.style.display = "block"
             marks.style.display ="block"
-        }else if(allBox[b[0]].id == "O" && allBox[b[1]].id == "O" && allBox[b[2]].id == "O"){
+            num1.innerHTML = "14"
+            num2.innerHTML = "32"
+            num3.innerHTML = "11"
+        }else if(box[b[0]].id == "O" && box[b[1]].id == "O" && box[b[2]].id == "O"){
            // console.log("cpu is the Winner")
-
            playBoard.style.opacity = "0.2"
             popUp.style.display = "block"
             marks.style.display ="block"
+            num1.innerHTML = "14"
+            num2.innerHTML = "32"
+            num3.innerHTML = "11"
         }
         else{
             continue;
         }
         runBot = false;
-        bot(runBot);
+        robot(runBot);
     }
 }
 
 //Draw Function 
 let drawFunc = ()=> {
-    if(allBox[0].id != "" && allBox[1].id != "" &&
-    allBox[2].id != "" && allBox[3].id != "" &&
-    allBox[4].id != "" && allBox[5].id != "" &&
-    allBox[6].id != "" && allBox[7].id != "" && allBox[8].id != ""){
+    if(box[0].id != "" && box[1].id != "" &&
+    box[2].id != "" && box[3].id != "" &&
+    box[4].id != "" && box[5].id != "" &&
+    box[6].id != "" && box[7].id != "" && box[8].id != ""){
 
             //Add Outcome
             playBoard.style.opacity = "0.5"

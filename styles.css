@@ -28,7 +28,6 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease-in;
-    opacity: 1;
 }
 
 .main-main.hide {
@@ -157,7 +156,7 @@ body {
     margin-top: 220px;
 }
 
-.play {
+.bot {
     height: 67px;
     width: 460px;
     border-radius: 15px;
@@ -174,7 +173,7 @@ body {
     box-shadow:inset 0px -8px 0px 0px #CC8B13;
 }
 
-.bot {
+#play {
     height: 67px;
     width: 460px;
     border-radius: 15px;
@@ -396,7 +395,7 @@ body {
     border-radius: 15px;
 }
 
-.marks section .box1 {
+.marks section .crate1 {
     background-color: #31C3BD;
 }
 
@@ -414,7 +413,7 @@ body {
     color: #1A2A33;
 }
 
-.marks section .num {
+.marks section .num1 {
     font-family: 'Outfit';
     font-size: 24px;
     font-weight: 700;
@@ -423,11 +422,29 @@ body {
     text-align: center;
     color: #1A2A33;
 }
-.marks section .box2 {
+.marks section .num2 {
+    font-family: 'Outfit';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    color: #1A2A33;
+}
+.marks section .num3 {
+    font-family: 'Outfit';
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    color: #1A2A33;
+}
+.marks section .crate2 {
     background-color: #A8BFC9;
     text-align: center;
 }
-.marks section .box3 {
+.marks section .crate3 {
     background-color: #F2B137;
 }
 
@@ -678,4 +695,28 @@ body {
     text-align: center;
     background-color: #F2B137;
     box-shadow:inset 0px -4px 0px 0px #CC8B13;
+}
+
+.win-next .active:hover {
+    background-color: #65E9E4;
+    cursor: pointer;
+    transform: scale(0.96);
+    cursor: pointer;
+}
+
+.lost-next .active:hover {
+    background-color: #FFC860;
+    cursor: pointer;
+    transform: scale(0.96);
+    cursor: pointer;
+}
+
+.xboxblue {
+    background-color: #31C3BD;
+    transition: all 1s ease;
+}
+
+.oboxyellow {
+    background-color: #F2B137;
+    transition: all 1s;
 }
