@@ -11,12 +11,12 @@
 
 body {
     font-family: 'Outfit';
+    background-color: #1A2A33;
 }
 
 .main-container {
     max-width: 1440px;
-    height: 900px;
-    position: relative;
+    max-height: 900px;
     background-color: #1A2A33;
 }
 
@@ -204,27 +204,25 @@ body {
 
 .play-board {
     max-width: 460px;
-    height: 623px;
-    position: relative;
+    height: 620px;
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
+   display: none
+   ;
 }
 
 .cont {
     position: absolute;
     left: 50%;
-    top: -10%;
+    top: -5%;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
     margin: 0;
     padding: 0;
-}
-
-.play-board {
-    cursor: pointer; 
-    display: none;
 }
 
 
@@ -269,17 +267,24 @@ body {
     margin: 15px 15px 15px 0px;
 }
 
-.play-board .x-turn .img{
+.img{
     margin: 15px 15px 15px 30px;
 }
 
-.play-board .x-turn img {
+.img {
     filter: grayscale(80%) contrast(100%) brightness(100%);
     height: 20px;
     width: 20px;
 }
 
-.play-board .x-turn img.show {
+.img .active{
+    content: url("icon-o.svg");
+    filter: grayscale(80%) contrast(100%) brightness(100%);
+    height: 20px;
+    width: 20px;
+}
+
+.img.show {
     content:url("icon-o.svg");
     filter: grayscale(100%) contrast(100%) brightness(100%);
     height: 20px;
@@ -348,34 +353,34 @@ body {
     text-align: center;
 }
 
-.play-area section span {
+.play-area section button {
     position: relative;
     display: block;
     background-color: #1F3641;
     height: 140px;
     width: 140px;
-    margin: 20px;
+    margin: 10px;
     box-shadow: 0px 8px 0px 0px #10212A;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .box img{
-    display: flex;
+    display: block;
     margin: auto;
     width: 64px;
     height: 64px;
-    margin-top: 40px;
+    align-items: center;
+    justify-content: center;
 }
 
-.box {
-    transform: scale(0.96);
-}
+
 
 .marks section {
     display: flex;
     position: absolute;
     left: 50%;
-    top: 100%;
+    top: 95%;
     transform: translate(-50%, -50%);
     opacity: 1;
 }
@@ -391,16 +396,13 @@ body {
     background-color: #1F3641;
     height: 72px;
     width: 140px;
-    margin: 20px;
+    margin: 10px;
     border-radius: 15px;
+    padding-top: 15px;
 }
 
 .marks section .crate1 {
     background-color: #31C3BD;
-}
-
-.marks section span {
-    padding-top: 15px;
 }
 
 .marks section .fig {
@@ -421,6 +423,7 @@ body {
     letter-spacing: 1.5px;
     text-align: center;
     color: #1A2A33;
+    transition: all 0.3s ease;
 }
 .marks section .num2 {
     font-family: 'Outfit';
@@ -430,6 +433,7 @@ body {
     letter-spacing: 1.5px;
     text-align: center;
     color: #1A2A33;
+    transition: all 0.3s ease;
 }
 .marks section .num3 {
     font-family: 'Outfit';
@@ -439,6 +443,7 @@ body {
     letter-spacing: 1.5px;
     text-align: center;
     color: #1A2A33;
+    transition: all 0.3s ease;
 }
 .marks section .crate2 {
     background-color: #A8BFC9;
@@ -654,6 +659,7 @@ body {
     letter-spacing: 2.5px;
     text-align: center;
     color: #A8BFC9;
+    margin-bottom: 10px;
 }
 
 .restart .restart-bt {
@@ -719,4 +725,216 @@ body {
 .oboxyellow {
     background-color: #F2B137;
     transition: all 1s;
+}
+
+
+
+/*@tablet-mode*/
+@media screen and (max-width: 768px) and (min-width: 765px) {
+    .popup .lost-mid {
+        display: flex;
+        width: 491px;
+        height: 64px;
+    }
+
+    .popup-x .win-mid {
+        display: flex;
+        width: 491px;
+        height: 64px;
+    }
+}
+
+
+/*@mobile-mode*/
+@media screen and (max-width: 375px){
+    .main-main {
+        width:327px;
+        height: 429px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease-in;
+        
+    }
+
+    .mid-portion {
+        width: 327px;
+        height: 205px;
+        border-radius: 15px;
+        background-color: #1F3641;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        
+    }
+
+    .slider {
+        height: 54px;
+        width: 131.99px;
+        left: 50%;
+        top: 9px;
+    }
+
+    .inner {
+        width: 279px;
+        height: 72px;
+    }
+
+    .icon-x {
+        left: 58px;
+    
+    }
+
+    .bot {
+        height: 56px;
+        width: 327px;
+        font-size: 16px;
+        line-height: 20.16px;
+    }
+
+    #play {
+        height: 56px;
+        width: 327px;
+        font-size: 16px;
+        line-height: 20.16px;
+    }
+
+    .play-board {
+        max-width: 328px;
+        height: 516px;  
+    }
+
+    .play-area section button {
+        height: 96px;
+        width: 96px;
+    }
+
+    .play-board .details {
+        width: 328px;
+        height: 40px;
+    }
+
+    .marks section span {
+        position: relative;
+        display: block;
+        background-color: #1F3641;
+        height: 64px;
+        width: 96px;
+        margin: 10px;
+        border-radius: 15px;
+        padding-top: 15px;
+    }
+
+    .marks section .fig {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        letter-spacing: 0.75px;
+    }
+    
+
+    .marks section .num1{
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 25px;
+        letter-spacing: 1.25px;
+    }
+    .marks section .num2{
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 25px;
+        letter-spacing: 1.25px;
+    }
+    .marks section .num3{
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 25px;
+        letter-spacing: 1.25px;
+    }
+
+    .box img{
+        width: 40px;
+        height: 40px;
+    }
+
+    .popup .lost-mid {
+        width: 290px;
+        height: 30px;
+    }
+
+    .popup .lost-mid p{
+        font-family: Outfit;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 30px;
+        letter-spacing: 1.5px;
+        text-align: left;
+        margin-top: 0px;
+    }
+
+    .popup img{
+        height: 30px;
+        width: 30px;
+    }
+
+    .popup .lost-para {
+        font-family: Outfit;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 18px;
+        letter-spacing: 0.875px;
+        text-align: center;
+
+    }
+
+    .popup-x .win-mid {
+        width: 290px;
+        height: 30px;
+    }
+
+    .popup-x img{
+        height: 40px;
+        width: 40px;
+    }
+
+    .popup-x .win-mid p{
+        font-family: "Outfit";
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 30px;
+        letter-spacing: 1.5px;
+        text-align: left;
+        margin-top: 0px;
+    }
+
+    .popup-x img{
+        height: 30px;
+        width: 30px;
+    }
+
+    .popup-x .win-para {
+        font-family: Outfit;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 18px;
+        letter-spacing: 0.875px;
+        text-align: center;
+
+    }
+
+    .restart .restart-para p{
+        font-family: "Outfit";
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 30px;
+        letter-spacing: 1.5px;
+        text-align: center;
+    }
+
+    .restart .restart-para {
+        width: 279px;
+        height: 30px;
+    }
 }

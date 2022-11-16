@@ -31,6 +31,8 @@ let choose = document.querySelectorAll(".choose")
 let num1 = document.querySelector(".num1")
 let num2 = document.querySelector(".num2")
 let num3 = document.querySelector(".num3")
+let img = document.querySelector(".img")
+
 
 //Selecting "Starting Page" Tags
 let mainMain = document.querySelector(".main-main"),
@@ -40,7 +42,7 @@ playBoard = document.querySelector(".play-board")
 playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
-allBox = document.querySelectorAll("section span");
+allBox = document.querySelectorAll("section button");
 let box = document.querySelectorAll(".box")
 
 let changeTurn = null;
@@ -88,25 +90,26 @@ let  runBot = true;
 
 
 //user clicked function
-function clickedBox(element){
+function clickedBox(button){
     //console.log(element);
     if(btn.classList.contains("botButton")){
-        element.innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
+        button.innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
         playerSign = "O"
-        element.setAttribute("id", playerSign);
+        button.setAttribute("id", playerSign);
+        img.innerHTML = `<img src="icon-x.svg">`
     }else{
-        element.innerHTML =  `<img src="icon-x.svg">` ////adding cross icon tag inside user clicked element
-        element.setAttribute("id", playerSign);
+        button.innerHTML =  `<img src="icon-x.svg">` ////adding cross icon tag inside user clicked element
+        button.setAttribute("id", playerSign);
+        img.classList.add("active")
     }
     winningFunc(); // calling winner function
     drawFunc();
     playBoard.style.pointerEvents = "none"
-    element.style.pointerEvents = "none"; //Once selected cannot be selected again
+    button.style.pointerEvents = "none"; //Once selected cannot be selected again
     let randomDelayTime = ((Math.random() * 1000) + 200).toFixed(); //generating random delay so bot will delay randomly to selct box
     setTimeout(()=>{
         robot (runBot); //calling bot function
     }, randomDelayTime); //passing random delay time
-
 }
 
 //bot click function
@@ -127,10 +130,12 @@ function robot(runBot){
            box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
             box[randomBox].setAttribute("id", playerSign);
             playerSign = "X"
+            img.innerHTML = `<img src="icon-x.svg">`
         }else{
             playBoard.style.pointerEvents = "auto"
             box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
             box[randomBox].setAttribute("id", playerSign);
+            img.classList.add("active")
         }
     } 
     winningFunc(); // calling winner function
@@ -187,16 +192,20 @@ let winningFunc = ()=>{
     }
 }
 
+
 //Draw Function 
 let drawFunc = ()=> {
     if(box[0].id != "" && box[1].id != "" &&
     box[2].id != "" && box[3].id != "" &&
     box[4].id != "" && box[5].id != "" &&
     box[6].id != "" && box[7].id != "" && box[8].id != ""){
-
             //Add Outcome
             playBoard.style.opacity = "0.5"
             restart.style.display = "block"
             marks.style.display ="block"
+            restartPara.innerHTML = "ROUND TIED"
+            num1.innerHTML = "14"
+            num2.innerHTML = "32"
+            num3.innerHTML = "11"
     }
 }
