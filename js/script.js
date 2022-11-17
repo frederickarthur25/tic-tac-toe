@@ -39,7 +39,7 @@ let mainMain = document.querySelector(".main-main"),
 playButton = document.querySelector(".play"),
 botButton = document.querySelector(".bot"),
 playBoard = document.querySelector(".play-board")
-playArea = document.querySelector("#play-area")
+playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
@@ -65,9 +65,6 @@ for(let i = 0; i < box.length; i++) { //add onclick attribute in all available s
     winQuit.onclick = () => {
         location.reload()
     }
-    winNext.onclick = () => {
-       location.reload(false)
-    }
 
 
     lostQuit.onclick = () => {
@@ -78,7 +75,7 @@ for(let i = 0; i < box.length; i++) { //add onclick attribute in all available s
 $(document).ready(() =>{
     $('.win-next').on('click', () =>{
         $('.popup-x').slideUp('slow')
-        $('#play-area').show()
+        $('.play-area').show()
 
     })
 })

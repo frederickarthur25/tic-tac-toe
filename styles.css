@@ -336,14 +336,14 @@ body {
     margin-top: 8px;
 }
 
-#play-area section {
+.play-area section {
     display: flex;
     align-items: center;
     justify-content: center;
     
 }
 
-#play-area {
+.play-area {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -353,7 +353,7 @@ body {
     text-align: center;
 }
 
-#play-area section button {
+.play-area section button {
     position: relative;
     display: block;
     background-color: #1F3641;
