@@ -11,14 +11,14 @@ let lostPara = document.querySelector(".lost-para")
 let lostMid = document.querySelector(".lost-mid")
 let lostBtn = document.querySelector(".lost-btn")
 let lostQuit = document.querySelector(".lost-quit")
-let lostNext = document.getElementById(".lost-next")
+let lostNext = document.querySelector(".lost-next")
 let popUpX = document.querySelector(".popup-x")
 let winPop = document.querySelector(".win-pop")
 let winPara = document.querySelector(".win-para")
 let winMid = document.querySelector(".win-mid")
 let winBtn = document.querySelector(".win-btn")
-let winQuit = document.getElementById(".win-quit")
-let winNext = document.getElementById(".win-next")
+let winQuit = document.querySelector(".win-quit")
+let winNext = document.querySelector(".win-next")
 let restart = document.querySelector(".restart")
 let restartPop = document.querySelector(".restart-pop")
 let restartPara = document.querySelector(".restart-para")
@@ -39,7 +39,7 @@ let mainMain = document.querySelector(".main-main"),
 playButton = document.querySelector(".play"),
 botButton = document.querySelector(".bot"),
 playBoard = document.querySelector(".play-board")
-playArea = document.querySelector(".play-area")
+playArea = document.querySelector("#play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
@@ -59,9 +59,24 @@ for(let i = 0; i < box.length; i++) { //add onclick attribute in all available s
         marks.style.display = "block" //hide the marks section
     }
     res.onclick = () => {
-        window.location.reload(1)
+        location.reload()
+    }
+
+    winQuit.onclick = () => {
+        location.reload()
+    }
+
+
+    lostQuit.onclick = () => {
+        location.reload()
     }
 } 
+
+$(document).ready(() =>{
+    $('.win-next').on('click', () =>{
+        $('.popup-x').hide()
+    })
+})
 
 box.forEach(items => {
     items.addEventListener("mouseenter", () => {
@@ -169,7 +184,7 @@ let winningFunc = ()=>{
             //console.log("Player is the Winner")
 
             //Add Outcome
-            playBoard.style.opacity = "0.5"
+            playBoard.style.opacity = "0.2"
             popUpX.style.display = "block"
             marks.style.display ="block"
             num1.innerHTML = "14"

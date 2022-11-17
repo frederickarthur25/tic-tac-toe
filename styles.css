@@ -336,14 +336,14 @@ body {
     margin-top: 8px;
 }
 
-.play-area section {
+#play-area section {
     display: flex;
     align-items: center;
     justify-content: center;
     
 }
 
-.play-area {
+#play-area {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -353,7 +353,7 @@ body {
     text-align: center;
 }
 
-.play-area section button {
+#play-area section button {
     position: relative;
     display: block;
     background-color: #1F3641;
@@ -543,6 +543,14 @@ body {
     box-shadow:inset 0px -4px 0px 0px #CC8B13;
 }
 
+.popup .lost-btn .lost-quit:hover {
+    cursor: pointer;
+}
+
+.popup .lost-btn .lost-next:hover {
+    cursor: pointer;
+}
+
 .popup-x {
     height: 266px;
     width: 100%;
@@ -630,6 +638,14 @@ body {
     text-align: center;
     background-color: #F2B137;
     box-shadow:inset 0px -4px 0px 0px #CC8B13;
+}
+
+.popup-x .win-btn .win-quit:hover {
+    cursor: pointer;
+}
+
+.popup-x .win-btn .win-next:hover {
+    cursor: pointer;
 }
 
 
