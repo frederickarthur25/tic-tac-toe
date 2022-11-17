@@ -65,6 +65,9 @@ for(let i = 0; i < box.length; i++) { //add onclick attribute in all available s
     winQuit.onclick = () => {
         location.reload()
     }
+    winNext.onclick = () => {
+       location.reload(false)
+    }
 
 
     lostQuit.onclick = () => {
@@ -74,7 +77,16 @@ for(let i = 0; i < box.length; i++) { //add onclick attribute in all available s
 
 $(document).ready(() =>{
     $('.win-next').on('click', () =>{
-        $('.popup-x').hide()
+        $('.popup-x').slideUp('slow')
+        $('#play-area').show()
+
+    })
+})
+
+$(document).ready(() =>{
+    $('#play').on('click', () =>{
+        $('.play-board').show()
+        $('.main-main').hide()
     })
 })
 
@@ -111,11 +123,9 @@ function clickedBox(button){
         button.innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
         playerSign = "O"
         button.setAttribute("id", playerSign);
-        img.innerHTML = `<img src="icon-x.svg">`
     }else{
         button.innerHTML =  `<img src="icon-x.svg">` ////adding cross icon tag inside user clicked element
         button.setAttribute("id", playerSign);
-        img.classList.add("active")
     }
     winningFunc(); // calling winner function
     drawFunc();
@@ -126,6 +136,7 @@ function clickedBox(button){
         robot (runBot); //calling bot function
     }, randomDelayTime); //passing random delay time
 }
+
 
 //bot click function
 function robot(runBot){
@@ -145,12 +156,10 @@ function robot(runBot){
            box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
             box[randomBox].setAttribute("id", playerSign);
             playerSign = "X"
-            img.innerHTML = `<img src="icon-x.svg">`
         }else{
             playBoard.style.pointerEvents = "auto"
             box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
             box[randomBox].setAttribute("id", playerSign);
-            img.classList.add("active")
         }
     } 
     winningFunc(); // calling winner function
