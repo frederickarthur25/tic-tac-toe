@@ -32,7 +32,8 @@ let num1 = document.querySelector(".num1")
 let num2 = document.querySelector(".num2")
 let num3 = document.querySelector(".num3")
 let img = document.querySelector(".img")
-
+let xboxblue = document.getElementsByClassName(".xboxblue")
+let oboxyellow = document.getElementsByClassName(".oboxyellow")
 
 //Selecting "Starting Page" Tags
 let mainMain = document.querySelector(".main-main"),
@@ -71,22 +72,55 @@ for(let i = 0; i < box.length; i++) { //add onclick attribute in all available s
         location.reload()
     }
 } 
-
+//Adding a click event to the NEXT ROUND button
 $(document).ready(() =>{
     $('.win-next').on('click', () =>{
         $('.popup-x').slideUp('slow')
         $('.play-area').show()
+    })
+})
 
+//adding event listener to NEXT ROUND button
+
+$(document).ready(() =>{
+    $('.win-next').on('mouseenter', () =>{
+        winNext.style.backgroundColor = "#FFC860"
     })
 })
 
 $(document).ready(() =>{
-    $('#play').on('click', () =>{
-        $('.play-board').show()
-        $('.main-main').hide()
+    $('.win-next').on('mouseleave', () =>{
+        winNext.style.backgroundColor = "#F2B137"
     })
 })
 
+//adding event listener to QUIT button
+$(document).ready(() =>{
+    $('.win-quit').on('mouseenter', () =>{
+        winQuit.style.backgroundColor = "#DBE8ED"
+    })
+})
+
+$(document).ready(() =>{
+    $('.win-quit').on('mouseleave', () =>{
+        winQuit.style.backgroundColor = "#A8BFC9"
+    })
+})
+
+//adding event listener to RESET button
+$(document).ready(() =>{
+    $('.res').on('mouseenter', () =>{
+        res.style.backgroundColor = "#DBE8ED"
+    })
+})
+
+$(document).ready(() =>{
+    $('.res').on('mouseleave', () =>{
+        res.style.backgroundColor = "#A8BFC9"
+    })
+})
+
+//Hover style for box when a user tries to click on a box
 box.forEach(items => {
     items.addEventListener("mouseenter", () => {
         if(changeTurn !== true){
@@ -107,6 +141,20 @@ box.forEach(items => {
         }
     })
 })
+
+//hover styles for bot
+$(document).ready(() =>{
+    $('.bot').on('mouseenter', () =>{
+        botButton.style.backgroundColor = "#FFC860" 
+    })
+})
+
+$(document).ready(() =>{
+    $('.bot').on('mouseleave', () =>{
+        botButton.style.backgroundColor = "#F2B137" 
+    })
+})
+
 
 let playerSign = "X"; //suppose player will be X
 let  runBot = true;
@@ -183,12 +231,10 @@ let winningFunc = ()=>{
     for (let a = 0; a <= 7; a++){
         let b = winningCombinations[a];
         //console.log(b)
-
         if(box[b[0]].id == "" || box[b[1]].id == "" || box[b[2]].id == ""){
             continue;
         }else if(box[b[0]].id == "X" && box[b[1]].id == "X" && box[b[2]].id == "X"){
             //console.log("Player is the Winner")
-
             //Add Outcome
             playBoard.style.opacity = "0.2"
             popUpX.style.display = "block"
@@ -196,6 +242,7 @@ let winningFunc = ()=>{
             num1.innerHTML = "14"
             num2.innerHTML = "32"
             num3.innerHTML = "11"
+            allBox.classList.add(".xboxblue")
         }else if(box[b[0]].id == "O" && box[b[1]].id == "O" && box[b[2]].id == "O"){
            // console.log("cpu is the Winner")
            playBoard.style.opacity = "0.2"
@@ -204,6 +251,7 @@ let winningFunc = ()=>{
             num1.innerHTML = "14"
             num2.innerHTML = "32"
             num3.innerHTML = "11"
+           
         }
         else{
             continue;
