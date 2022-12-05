@@ -44,6 +44,10 @@ body {
     margin-top: -10px;
 }
 
+.winner {
+    background-color: black;
+    z-index: 2;
+}
 
 .mid-portion {
     width: 460px;
@@ -171,6 +175,7 @@ body {
     text-align: center;
     color: #1A2A33;
     box-shadow:inset 0px -8px 0px 0px #CC8B13;
+    cursor: pointer;
 }
 
 #play {
@@ -188,18 +193,8 @@ body {
     text-align: center;
     color: #1A2A33;
     box-shadow:inset 0px -8px 0px 0px #118C87;
-    transition: all 0.3s ease;
     margin-top: 15px;
-}
-
-.bot:hover {
     cursor: pointer;
-    transform:scale(0.96)
-}
-
-.play:hover {
-    cursor: pointer;
-    transform:scale(0.96)
 }
 
 .play-board {
@@ -233,7 +228,7 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 480px;
+    width: 460px;
     height: 52px;
 }
 
@@ -319,9 +314,8 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.res:hover {
+.res {
     cursor: pointer;
-    transform: scale(0.96);
 }
 
 .play-board .x-turn span {
@@ -385,11 +379,6 @@ body {
     opacity: 1;
 }
 
-.marks section.show {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 .marks section span {
     position: relative;
     display: block;
@@ -399,6 +388,7 @@ body {
     margin: 10px;
     border-radius: 15px;
     padding-top: 15px;
+    cursor: auto;
 }
 
 .marks section .crate1 {
@@ -472,7 +462,7 @@ body {
 }
 
 .popup .lost-para {
-    font-family: Outfit;
+    font-family: 'Outfit';
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
@@ -487,7 +477,7 @@ body {
 }
 
 .popup .lost-mid p{
-    font-family: Outfit;
+    font-family: 'Outfit';
     font-size: 40px;
     font-weight: 700;
     line-height: 50px;
@@ -570,7 +560,7 @@ body {
 }
 
 .popup-x .win-para {
-    font-family: Outfit;
+    font-family: 'Outfit';
     font-size: 16px;
     font-weight: 700;
     line-height: 20px;
@@ -586,7 +576,7 @@ body {
 }
 
 .popup-x .win-mid p{
-    font-family: Outfit;
+    font-family: 'Outfit';
     font-size: 40px;
     font-weight: 700;
     line-height: 50px;
@@ -668,7 +658,7 @@ body {
 }
 
 .restart .restart-para {
-    font-family: Outfit;
+    font-family: 'Outfit';
     font-size: 40px;
     font-weight: 700;
     line-height: 50px;
@@ -914,7 +904,7 @@ body {
     }
 
     .popup-x .win-mid p{
-        font-family: "Outfit";
+        font-family: 'Outfit';
         font-size: 24px;
         font-weight: 700;
         line-height: 30px;
@@ -929,7 +919,7 @@ body {
     }
 
     .popup-x .win-para {
-        font-family: Outfit;
+        font-family: 'Outfit';
         font-size: 14px;
         font-weight: 700;
         line-height: 18px;
