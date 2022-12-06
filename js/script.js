@@ -255,8 +255,7 @@ botButton.onclick = ()=>{
                    //update cell class to add  X  
                     box[(row * 3) + col].innerHTML = `<img src="icon-x.svg">`
                 }else if(boardData[row][col] == -1) {
-                    //update cell class to add O
-                    box[(row * 3) + col].innerHTML = `<img src="icon-x.svg">`
+                   return
                 }
             }                                                                               
         }
@@ -346,7 +345,7 @@ botButton.onclick = ()=>{
         //console.log(randomBox);
         if(array.length > 0){
             if(btn.classList.contains("botButton")){
-               box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding cross icon tag inside user clicked element  
+               box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element  
                playerSign = "X"  
             }else{
                 playBoard.style.pointerEvents = "auto"
