@@ -59,6 +59,7 @@ let player = 1
 let gameOver = false;
 
 
+
 //single player mode
 playButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
@@ -234,56 +235,7 @@ playButton.onclick = ()=>{
         num3.innerText = "0"
     })
 
-    winQuit.onclick = () => {
-        location.reload()
-    }
-
-
-    lostQuit.onclick = () => {
-        location.reload()
-    }
-
-
-
-    //adding background color on mouseenter to NEXT ROUND button
-    $(document).ready(() =>{
-        $('.win-next').on('mouseenter', () =>{
-            winNext.style.backgroundColor = "#FFC860"
-        })
-    })
-    
-    //removing background color on mouseleave to NEXT ROUND button
-    $(document).ready(() =>{
-        $('.win-next').on('mouseleave', () =>{
-            winNext.style.backgroundColor = ""
-        })
-    })
-    
-    //adding background color to QUIT button
-    $(document).ready(() =>{
-        $('.win-quit').on('mouseenter', () =>{
-            winQuit.style.backgroundColor = "#DBE8ED"
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.win-quit').on('mouseleave', () =>{
-            winQuit.style.backgroundColor = ""
-        })
-    })
-    
-    //adding event listener to RESET button
-    $(document).ready(() =>{
-        $('.res').on('mouseenter', () =>{
-            res.style.backgroundColor = "#DBE8ED"
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.res').on('mouseleave', () =>{
-            res.style.backgroundColor = ""
-        })
-    })
+   
     
 }
 
@@ -342,7 +294,7 @@ botButton.onclick = ()=>{
         if(boardData[row][col] ==0 && gameOver == false){
         boardData[row][col] = player;
         //Change player
-        robot(runBot)
+    
         //Update the screen with markers
         drawMarkers();
         //Check if anyone has won
@@ -444,9 +396,9 @@ botButton.onclick = ()=>{
         if(runBot){ //if  runBot is true then run the following code
             let playerSign = "O"
         let array = []; 
-        for (let i = 0; i < box.length; i++) {
-            if(box[i].childElementCount === 0){ //if span has no any child element
-                 array.push(i);// inserting unclicked or unselected boxes inside array means that span has no children
+        for (let row = 0; row < box.length; row++) {
+            if(box[row].childElementCount === 0){ //if span has no any child element
+                 array.push(row);// inserting unclicked or unselected boxes inside array means that span has no children
                  //console.log(i + " " + "has no child")
             }
         }
@@ -454,15 +406,97 @@ botButton.onclick = ()=>{
         //console.log(randomBox);
         if(array.length > 0){
             if(btn.classList.contains("botButton")){
-               box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element    
+               box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding cross icon tag inside user clicked element    
             }else{
                 playBoard.style.pointerEvents = "auto"
                 box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
             }
         } 
+        }
         drawMarkers(); // calling winner function
         checkResult()
         box[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
-        }
     }
 }
+
+
+
+winQuit.onclick = () => {
+    location.reload()
+}
+
+
+lostQuit.onclick = () => {
+    location.reload()
+}
+
+
+
+//adding background color on mouseenter to NEXT ROUND button
+$(document).ready(() =>{
+    $('.win-next').on('mouseenter', () =>{
+        winNext.style.backgroundColor = "#FFC860"
+    })
+})
+
+//removing background color on mouseleave to NEXT ROUND button
+$(document).ready(() =>{
+    $('.win-next').on('mouseleave', () =>{
+        winNext.style.backgroundColor = ""
+    })
+})
+
+//adding background color to QUIT button
+$(document).ready(() =>{
+    $('.win-quit').on('mouseenter', () =>{
+        winQuit.style.backgroundColor = "#DBE8ED"
+    })
+})
+
+$(document).ready(() =>{
+    $('.win-quit').on('mouseleave', () =>{
+        winQuit.style.backgroundColor = ""
+    })
+})
+
+
+//adding background color on mouseenter to NEXT ROUND button
+$(document).ready(() =>{
+    $('.lost-next').on('mouseenter', () =>{
+        lostNext.style.backgroundColor = "#FFC860"
+    })
+})
+
+//removing background color on mouseleave to NEXT ROUND button
+$(document).ready(() =>{
+    $('.lost-next').on('mouseleave', () =>{
+        lostNext.style.backgroundColor = ""
+    })
+})
+
+//adding background color to QUIT button
+$(document).ready(() =>{
+    $('.lost-quit').on('mouseenter', () =>{
+        lostQuit.style.backgroundColor = "#DBE8ED"
+    })
+})
+
+$(document).ready(() =>{
+    $('.lost-quit').on('mouseleave', () =>{
+        lostQuit.style.backgroundColor = ""
+    })
+})
+
+
+//adding event listener to RESET button
+$(document).ready(() =>{
+    $('.res').on('mouseenter', () =>{
+        res.style.backgroundColor = "#DBE8ED"
+    })
+})
+
+$(document).ready(() =>{
+    $('.res').on('mouseleave', () =>{
+        res.style.backgroundColor = ""
+    })
+})
