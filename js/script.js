@@ -214,6 +214,36 @@ playButton.onclick = ()=>{
     })
 
 
+    res.addEventListener("click", () => {
+        boardData = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+            player = 1
+            gameOver = false;
+        //Reset game board
+            box.forEach(box => {
+            box.innerHTML = (``)
+        })
+        playBoard.style.opacity = "1"
+        popUp.style.display = "none"
+        num1.innerText = "0"
+        num2.innerText = "0"
+        num3.innerText = "0"
+    })
+
+    winQuit.onclick = () => {
+        location.reload()
+    }
+
+
+    lostQuit.onclick = () => {
+        location.reload()
+    }
+
+
+
     //adding background color on mouseenter to NEXT ROUND button
     $(document).ready(() =>{
         $('.win-next').on('mouseenter', () =>{
@@ -311,7 +341,7 @@ botButton.onclick = ()=>{
         if(boardData[row][col] ==0 && gameOver == false){
         boardData[row][col] = player;
         //Change player
-        player *= -1;
+        robot(runBot)
         //Update the screen with markers
         drawMarkers();
         //Check if anyone has won
@@ -332,12 +362,12 @@ botButton.onclick = ()=>{
                 // check if it is player 1's marker
                 if(boardData[row][col] == 1) {
                    //update cell class to add  X  
-                   box[(row * 3) + col].innerHTML = `<img src="icon-x.svg">`
-                }else if(boardData[row][col] == runBot) {
+                    box[(row * 3) + col].innerHTML = `<img src="icon-x.svg">`
+                }else if(boardData[row][col] == -1) {
                     //update cell class to add O
                     box[(row * 3) + col].innerHTML = `<img src="icon-x.svg">`
                 }
-            }                                                                                
+            }                                                                               
         }
     }
     
@@ -350,15 +380,11 @@ botButton.onclick = ()=>{
             if(rowSum == 3 || colSum == 3) {
                 //Player 1 Wins
                 endGame(1);
-                runBot = true;
                 return
             }else if (rowSum == -3 || colSum == -3) {
                 //Player 1 Wins
                 endGame(2); 
-                runBot = true;  
-                return
-            }
-           
+            }  
         }
         //Check diagonals
         let diagonalSum1 = boardData[0][0] + boardData[1][1] + boardData[2][2];
@@ -366,12 +392,11 @@ botButton.onclick = ()=>{
         if(diagonalSum1 == 3 || diagonalSum2 == 3) {
             //Player 1 Wins
             endGame(1);
-            runBot = true;
             return
         }else if (diagonalSum1 == -3 || diagonalSum2 == -3) {
             //Player 1 Wins
-            endGame(2); 
-            runBot = true; 
+            endGame(2);
+        }else{
             return
         }
     
@@ -380,7 +405,6 @@ botButton.onclick = ()=>{
         boardData[1].indexOf(0) == -1 &&
         boardData[2].indexOf(0) == -1) {
             endGame(0);
-            runBot = true;
             return
         }
     }
@@ -398,16 +422,16 @@ botButton.onclick = ()=>{
             num1.innerHTML = "14"
             num2.innerHTML = "32"
             num3.innerHTML = "11"
-       }else if(runBot = true) {
+       }else if(player = 1) {
             playBoard.style.opacity = "0.2"
-            popUp.style.display = "block"
+            popUpX.style.display = "block"
             marks.style.display ="block"
             num1.innerHTML = "14"
             num2.innerHTML = "32"
             num3.innerHTML = "11"
        }else{
             playBoard.style.opacity = "0.2"
-            popUpX.style.display = "block"
+            popUp.style.display = "block"
             marks.style.display ="block"
             num1.innerHTML = "14"
             num2.innerHTML = "32"
@@ -429,13 +453,10 @@ botButton.onclick = ()=>{
         //console.log(randomBox);
         if(array.length > 0){
             if(btn.classList.contains("botButton")){
-               box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
-                box[randomBox].setAttribute("id", playerSign);
-                playerSign = "X"
+               box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element    
             }else{
                 playBoard.style.pointerEvents = "auto"
                 box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
-                box[randomBox].setAttribute("id", playerSign);
             }
         } 
         drawMarkers(); // calling winner function
@@ -443,86 +464,4 @@ botButton.onclick = ()=>{
         box[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
         }
     }
-    //Restart Game
-    //Add event listener to restart button
-    winNext.addEventListener("click", () => {
-        //Reset game variales
-            boardData = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-            player = 1
-            gameOver = false;
-        //Reset game board
-            box.forEach(box => {
-            box.innerHTML = (``)
-        })
-        playBoard.style.opacity = "1"
-        popUpX.style.display = "none"
-        num1.innerText = "0"
-        num2.innerText = "0"
-        num3.innerText = "0"
-    })
-    
-    lostNext.addEventListener("click", () => {
-        boardData = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-            player = 1
-            gameOver = false;
-        //Reset game board
-            box.forEach(box => {
-            box.innerHTML = (``)
-        })
-        playBoard.style.opacity = "1"
-        popUp.style.display = "none"
-        num1.innerText = "0"
-        num2.innerText = "0"
-        num3.innerText = "0"
-    })
-
-
-    //adding background color on mouseenter to NEXT ROUND button
-    $(document).ready(() =>{
-        $('.win-next').on('mouseenter', () =>{
-            winNext.style.backgroundColor = "#FFC860"
-        })
-    })
-    
-    //removing background color on mouseleave to NEXT ROUND button
-    $(document).ready(() =>{
-        $('.win-next').on('mouseleave', () =>{
-            winNext.style.backgroundColor = ""
-        })
-    })
-    
-    //adding background color to QUIT button
-    $(document).ready(() =>{
-        $('.win-quit').on('mouseenter', () =>{
-            winQuit.style.backgroundColor = "#DBE8ED"
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.win-quit').on('mouseleave', () =>{
-            winQuit.style.backgroundColor = ""
-        })
-    })
-    
-    //adding event listener to RESET button
-    $(document).ready(() =>{
-        $('.res').on('mouseenter', () =>{
-            res.style.backgroundColor = "#DBE8ED"
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.res').on('mouseleave', () =>{
-            res.style.backgroundColor = ""
-        })
-    })
-    
 }
