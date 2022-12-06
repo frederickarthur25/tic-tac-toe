@@ -45,6 +45,7 @@ marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
 let box = document.querySelectorAll(".box")
+let changeTurn = null;
 
 //Create array to hold board data
 let boardData = [
@@ -383,7 +384,7 @@ botButton.onclick = ()=>{
                 return
             }else if (rowSum == -3 || colSum == -3) {
                 //Player 1 Wins
-                endGame(2); 
+                endGame((runBot)); 
             }  
         }
         //Check diagonals
@@ -395,7 +396,7 @@ botButton.onclick = ()=>{
             return
         }else if (diagonalSum1 == -3 || diagonalSum2 == -3) {
             //Player 1 Wins
-            endGame(2);
+            endGame((runBot));
         }else{
             return
         }
@@ -422,14 +423,14 @@ botButton.onclick = ()=>{
             num1.innerHTML = "14"
             num2.innerHTML = "32"
             num3.innerHTML = "11"
-       }else if(player = 1) {
+       }else if(player == 1) {
             playBoard.style.opacity = "0.2"
             popUpX.style.display = "block"
             marks.style.display ="block"
             num1.innerHTML = "14"
             num2.innerHTML = "32"
             num3.innerHTML = "11"
-       }else{
+       }else if(robot(runBot)) {
             playBoard.style.opacity = "0.2"
             popUp.style.display = "block"
             marks.style.display ="block"
