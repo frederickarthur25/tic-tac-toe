@@ -44,9 +44,9 @@ body {
     margin-top: -10px;
 }
 
-.winner {
+.box .winner {
     background-color: black;
-    z-index: 2;
+    z-index: 5;
 }
 
 .mid-portion {
@@ -777,7 +777,7 @@ body {
     .slider {
         height: 54px;
         width: 131.99px;
-        left: 50%;
+        left: 5%;
         top: 9px;
     }
 

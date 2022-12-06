@@ -174,10 +174,6 @@ playButton.onclick = ()=>{
             num3.innerHTML = "11"
        }
     }
-    //Restart Game
-   
-
-    
     
 }
 
@@ -275,6 +271,7 @@ botButton.onclick = ()=>{
             if(rowSum == 3 || colSum == 3) {
                 //Player 1 Wins
                 endGame(1);
+                
                 return
             }else if (rowSum == -3 || colSum == -3) {
                 //Player 1 Wins
@@ -287,6 +284,7 @@ botButton.onclick = ()=>{
         if(diagonalSum1 == 3 || diagonalSum2 == 3) {
             //Player 1 Wins
             endGame(1);
+            
             return
         }else if (diagonalSum1 == -3 || diagonalSum2 == -3) {
             //Player 1 Wins
