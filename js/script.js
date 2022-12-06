@@ -346,7 +346,8 @@ botButton.onclick = ()=>{
         //console.log(randomBox);
         if(array.length > 0){
             if(btn.classList.contains("botButton")){
-               box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding cross icon tag inside user clicked element    
+               box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding cross icon tag inside user clicked element  
+               playerSign = "X"  
             }else{
                 playBoard.style.pointerEvents = "auto"
                 box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
@@ -355,7 +356,6 @@ botButton.onclick = ()=>{
         }
         drawMarkers(); // calling winner function
         checkResult()
-        box[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
     }
 }
 
