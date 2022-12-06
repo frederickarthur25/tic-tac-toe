@@ -175,67 +175,9 @@ playButton.onclick = ()=>{
        }
     }
     //Restart Game
-    //Add event listener to restart button
-    winNext.addEventListener("click", () => {
-        //Reset game variales
-            boardData = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-            player = 1
-            gameOver = false;
-        //Reset game board
-            box.forEach(box => {
-            box.innerHTML = (``)
-        })
-        playBoard.style.opacity = "1"
-        popUpX.style.display = "none"
-        num1.innerText = "0"
-        num2.innerText = "0"
-        num3.innerText = "0"
-    })
-    
-    lostNext.addEventListener("click", () => {
-        boardData = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-            player = 1
-            gameOver = false;
-        //Reset game board
-            box.forEach(box => {
-            box.innerHTML = (``)
-        })
-        playBoard.style.opacity = "1"
-        popUp.style.display = "none"
-        num1.innerText = "0"
-        num2.innerText = "0"
-        num3.innerText = "0"
-    })
-
-
-    res.addEventListener("click", () => {
-        boardData = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
-            player = 1
-            gameOver = false;
-        //Reset game board
-            box.forEach(box => {
-            box.innerHTML = (``)
-        })
-        playBoard.style.opacity = "1"
-        popUp.style.display = "none"
-        num1.innerText = "0"
-        num2.innerText = "0"
-        num3.innerText = "0"
-    })
-
    
+
+    
     
 }
 
@@ -420,7 +362,6 @@ botButton.onclick = ()=>{
 }
 
 
-
 winQuit.onclick = () => {
     location.reload()
 }
@@ -499,4 +440,65 @@ $(document).ready(() =>{
     $('.res').on('mouseleave', () =>{
         res.style.backgroundColor = ""
     })
+})
+
+
+ //Add event listener to restart button
+ winNext.addEventListener("click", () => {
+    //Reset game variales
+        boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    popUpX.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
+
+lostNext.addEventListener("click", () => {
+    boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    popUp.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
+
+
+res.addEventListener("click", () => {
+    boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    popUp.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
 })
