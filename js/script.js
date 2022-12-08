@@ -333,7 +333,7 @@ botButton.onclick = ()=>{
 
     function robot(runBot){
         if(runBot){ //if  runBot is true then run the following code
-            let playerSign = "O"
+            let player = "O"
         let array = []; 
         for (let row = 0; row < box.length; row++) {
             if(box[row].childElementCount === 0){ //if span has no any child element
@@ -359,6 +359,7 @@ botButton.onclick = ()=>{
 }
 
 
+
 winQuit.onclick = () => {
     location.reload()
 }
@@ -368,6 +369,10 @@ lostQuit.onclick = () => {
     location.reload()
 }
 
+
+restartQuit.onclick = () => {
+    location.reload()
+}
 
 
 //adding background color on mouseenter to NEXT ROUND button
@@ -394,6 +399,35 @@ $(document).ready(() =>{
 $(document).ready(() =>{
     $('.win-quit').on('mouseleave', () =>{
         winQuit.style.backgroundColor = ""
+    })
+})
+
+
+
+//adding background color on mouseenter to NEXT ROUND button
+$(document).ready(() =>{
+    $('.restart-next').on('mouseenter', () =>{
+        restartNext.style.backgroundColor = "#FFC860"
+    })
+})
+
+//removing background color on mouseleave to NEXT ROUND button
+$(document).ready(() =>{
+    $('.restart-next').on('mouseleave', () =>{
+        restartNext.style.backgroundColor = ""
+    })
+})
+
+//adding background color to QUIT button
+$(document).ready(() =>{
+    $('.restart-quit').on('mouseenter', () =>{
+        restartQuit.style.backgroundColor = "#DBE8ED"
+    })
+})
+
+$(document).ready(() =>{
+    $('.restart-quit').on('mouseleave', () =>{
+        restartQuit.style.backgroundColor = ""
     })
 })
 
@@ -495,6 +529,26 @@ res.addEventListener("click", () => {
     })
     playBoard.style.opacity = "1"
     popUp.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
+
+
+restartNext.addEventListener("click", () => {
+    boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    restart.style.display = "none"
     num1.innerText = "0"
     num2.innerText = "0"
     num3.innerText = "0"

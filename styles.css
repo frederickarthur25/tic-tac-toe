@@ -692,6 +692,7 @@ body {
     text-align: center;
     color:#1A2A33;
     box-shadow:inset 0px -4px 0px 0px #6B8997;
+    cursor: pointer;
 }
 
 .restart .restart-bt .restart-next {
@@ -707,6 +708,7 @@ body {
     text-align: center;
     background-color: #F2B137;
     box-shadow:inset 0px -4px 0px 0px #CC8B13;
+    cursor: pointer;
 }
 
 .win-next .active:hover {
