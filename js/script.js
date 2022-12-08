@@ -360,6 +360,8 @@ botButton.onclick = ()=>{
 
 
 
+
+
 winQuit.onclick = () => {
     location.reload()
 }
