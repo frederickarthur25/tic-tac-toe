@@ -28,6 +28,7 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease-in;
+
 }
 
 .main-main.hide {
@@ -942,5 +943,13 @@ body {
     .restart .restart-para {
         width: 279px;
         height: 30px;
+    }
+
+    .restart .restart-bt .restart-next {
+        margin-top: 20px;
+    }
+
+    .restart .restart-bt .restart-quit {
+        margin-top: 20px;
     }
 }
