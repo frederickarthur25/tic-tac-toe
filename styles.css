@@ -28,7 +28,6 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     transition: all 0.3s ease-in;
-
 }
 
 .main-main.hide {
@@ -206,8 +205,7 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
-   display: none
-   ;
+    display: none;
 }
 
 .cont {
@@ -238,47 +236,49 @@ body {
     height: 32px;
 }
 
+.x-turn {
+        width: 140px;
+        height: 52px;
+        position: absolute;
+        display: flex;
+        left: 50%;
+        top: 90%;
+        transform: translate(-50%, -50%);
+        font-family: "Outfit";
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 1px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        color: #A8BFC9;
+        background-color: #1F3641;
+        gap: 2px;
+        box-shadow:inset 0px -4px 0px 0px #10212A;
+        border-radius: 10px;
+        padding-left: 10px;
+        padding-bottom: 7px;
+}
 
-.play-board .x-turn .btn {
-    width: 140px;
-    height: 52px;
+ .x-turn span {
     position: absolute;
     display: flex;
-    left: 50%;
-    top: -30%;
-    transform: translate(-50%, -50%);
-    font-family: Outfit;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 20px;
-    letter-spacing: 1px;
-    text-align: center;
-    color: #A8BFC9;
-    background-color: #1F3641;
-    gap: 2px;
-    box-shadow:inset 0px -4px 0px 0px #10212A;
+    height: 20px;
+    width: 20px;
+    left: 10%;
+    top: 10%;
 }
 
 .play-board .x-turn .parag{
     margin: 15px 15px 15px 0px;
 }
 
-.img{
-    margin: 15px 15px 15px 30px;
-}
 
 .img {
     filter: grayscale(80%) contrast(100%) brightness(100%);
-    height: 20px;
-    width: 20px;
 }
 
-.img .active{
-    content: url("icon-o.svg");
-    filter: grayscale(80%) contrast(100%) brightness(100%);
-    height: 20px;
-    width: 20px;
-}
 
 .img.show {
     content:url("icon-o.svg");

@@ -31,12 +31,13 @@ let choose = document.querySelectorAll(".choose")
 let num1 = document.querySelector(".num1")
 let num2 = document.querySelector(".num2")
 let num3 = document.querySelector(".num3")
-let img = document.querySelector(".img")
+ img = document.querySelector(".img")
 let xboxblue = document.getElementsByClassName(".xboxblue")
 let oboxyellow = document.getElementsByClassName(".oboxyellow")
 
 //Selecting "Starting Page" Tags
 let mainMain = document.querySelector(".main-main"),
+mainCont = document.querySelector(".main-container"),
 playButton = document.querySelector("#play"),
 botButton = document.querySelector(".bot"),
 playBoard = document.querySelector(".play-board")
@@ -44,8 +45,7 @@ playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
-let box = document.querySelectorAll(".box")
-let changeTurn = null;
+box = document.querySelectorAll(".box")
 
 
 //Create array to hold board data
@@ -175,6 +175,87 @@ playButton.onclick = ()=>{
             num3.innerHTML = "11"
        }
     }
+
+
+     //Add event listener to restart button
+ winNext.addEventListener("click", () => {
+    //Reset game variales
+        boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    popUpX.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
+
+lostNext.addEventListener("click", () => {
+    boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    popUp.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
+
+
+res.addEventListener("click", () => {
+    boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    popUp.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
+
+
+restartNext.addEventListener("click", () => {
+    boardData = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]
+        player = 1
+        gameOver = false;
+    //Reset game board
+        box.forEach(box => {
+        box.innerHTML = (``)
+    })
+    playBoard.style.opacity = "1"
+    restart.style.display = "none"
+    num1.innerText = "0"
+    num2.innerText = "0"
+    num3.innerText = "0"
+})
     
 }
 
@@ -204,179 +285,57 @@ $(document).ready(() =>{
 
 
 
+let changeTurn = true
+let usedBox = []
+let winner = false;
+let ties = 0
 
+let user1 = {
+    symbol : `<img src="icon-x.svg">`,
+    played : [],
+    score: 0
+}
 
-
-
-
-    let playerSign = "X"
-    
+let user2 = {
+    symbol : `<img src="icon-o.svg">`,
+    played : [],
+    score: 0
+}
+   
 //Multi-player mode
     botButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
-    startGame ()
+
+    checkTurn()
 }
+        for (let i = 0; i < 9; i++){
+            box[i].addEventListener("click", () => {
+                if(isEmpty(i)){
+                    if(changeTurn){
+                        addSymbol(user1, i)
+                        checkWin(user1)
+                        changeTurn = false
+                        checkTurn()
+                    }else{
+                        addSymbol(user2, i)
+                        checkWin(user2)
+                        changeTurn = true
+                        checkTurn()
+                    }
+                }else{
+                    alert("choose an empty cell")
+                }
+            })
+        }
 
-function startGame (){ //once windows load
-    for(let i = 0; i < box.length; i++) { //add onclick attribute in all available section's span
-        box[i].setAttribute("onclick", "clickedBox(this)");
-        
-    }
-
-         //Hover style for box when a user tries to click on a box
-    box.forEach(items => {
-        items.addEventListener("mouseenter", () => {
-            if(changeTurn !== true){
-                items.innerHTML = `<img src="icon-x-outline.svg">`
-            }else{
-                items.innerHTML = `<img src="icon-o-outline.svg">`
-                changeTurn = false;
-            }
-        })
-    })
-    
-    box.forEach(items => {
-        items.addEventListener("mouseleave", () => {
-            if(changeTurn === true){
-                items.innerHTML = ``
-            }else{
-                items.innerHTML = ``
-            }
-        })
-    })
+    function addSymbol(user, i){
+        box[i].innerHTML = user.symbol;
+        user.played.push(i)
+        usedBox.push(i);
     } 
     
-    //adding event listener to NEXT ROUND button
-    
-    $(document).ready(() =>{
-        $('.win-next').on('mouseenter', () =>{
-            winNext.style.backgroundColor = "#FFC860"
-        })
-    })
-    
-    //adding event listener 'CLICK' to NEXT ROUND button
-    $(document).ready(() =>{
-        $('.win-next').on('mouseleave', () =>{
-            winNext.style.backgroundColor = ""
-        })
-    })
-    
-    //adding event listener to QUIT button
-    $(document).ready(() =>{
-        $('.win-quit').on('mouseenter', () =>{
-            winQuit.style.backgroundColor = "#DBE8ED"
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.win-quit').on('mouseleave', () =>{
-            winQuit.style.backgroundColor = ""
-        })
-    })
-    
-    //adding event listener to RESET button
-    $(document).ready(() =>{
-        $('.res').on('mouseenter', () =>{
-            res.style.backgroundColor = "#DBE8ED"
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.res').on('mouseleave', () =>{
-            res.style.backgroundColor = ""
-        })
-    })
-    
-   
-    
-    //hover styles for bot
-    $(document).ready(() =>{
-        $('.bot').on('mouseenter', () =>{
-            botButton.style.backgroundColor = "#FFC860" 
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.bot').on('mouseleave', () =>{
-            botButton.style.backgroundColor = "" 
-        })
-    })
-    //hover styles for player
-    $(document).ready(() =>{
-        $('#play').on('mouseenter', () =>{
-            playButton.style.backgroundColor = "#65E9E4" 
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('#play').on('mouseleave', () =>{
-            playButton.style.backgroundColor = "" 
-        })
-    })
-    
-    
- //suppose player will be X
-    let  runBot = true;
-    
-    
-    
-    //user clicked function
-    function clickedBox(button){
-        //console.log(element);
-        if(btn.classList.contains("botButton")){
-            button.innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
-            playerSign = "O"
-            button.setAttribute("id", playerSign);
-        }else{
-            button.innerHTML =  `<img src="icon-x.svg">` ////adding cross icon tag inside user clicked element
-            button.setAttribute("id", playerSign);
-        }
-        winningFunc(); // calling winner function
-        drawFunc();
-        playBoard.style.pointerEvents = "none"
-        button.style.pointerEvents = "none"; //Once selected cannot be selected again
-        let randomDelayTime = ((Math.random() * 1000) + 200).toFixed(); //generating random delay so bot will delay randomly to selct box
-        setTimeout(()=>{
-            robot(runBot); //calling bot function
-        }, randomDelayTime); //passing random delay time
-    }
-    
-    
-    
-    //bot click function
-    function robot(runBot){
-        if(runBot){ //if  runBot is true then run the following code
-            let playerSign = "O"
-        let array = []; 
-        for (let i = 0; i < box.length; i++) {
-            if(box[i].childElementCount === 0){ //if span has no any child element
-                 array.push(i);// inserting unclicked or unselected boxes inside array means that span has no children
-                 //console.log(i + " " + "has no child")
-            }
-        }
-        let randomBox = array[(Math.floor(Math.random() * array.length))]; //getting random index from array so bot will select random unselected
-        //console.log(randomBox);
-        if(array.length > 0){
-            if(btn.classList.contains("botButton")){
-               box[randomBox].innerHTML =  `<img src="icon-x.svg">` //adding cross icon tag inside user clicked element
-                box[randomBox].setAttribute("id", playerSign);
-                playerSign = "X"
-            }else{
-                playBoard.style.pointerEvents = "auto"
-                box[randomBox].innerHTML =  `<img src="icon-o.svg">` //adding circle icon tag inside user clicked element
-                box[randomBox].setAttribute("id", playerSign);
-            }
-        } 
-        winningFunc(); // calling winner function
-        drawFunc()
-        box[randomBox].style.pointerEvents = "none" ////Once selected cannot be selected again
-        }
-    }
-    
-    
-    //All winning combinations
     let winningCombinations = [
         [0,1,2],
         [0,3,6], 
@@ -386,59 +345,97 @@ function startGame (){ //once windows load
         [1,4,7], 
         [0,4,8], 
         [2,4,6],
-    ]
-    
-    //Winning function for user and bot
-    let winningFunc = ()=>{
-        for (let a = 0; a <= 7; a++){
-            let b = winningCombinations[a];
-            //console.log(b)
-            if(box[b[0]].id == "" || box[b[1]].id == "" || box[b[2]].id == ""){
-                continue;
-            }else if(box[b[0]].id == "X" && box[b[1]].id == "X" && box[b[2]].id == "X"){
-                //console.log("Player is the Winner")
-                //Add Outcome
-                playBoard.style.opacity = "0.2"
-                popUpX.style.display = "block"
-                marks.style.display ="block"
-                num1.innerHTML = "14"
-                num2.innerHTML = "32"
-                num3.innerHTML = "11"
-                allBox.classList.add("winner")
-            }else if(box[b[0]].id == "O" && box[b[1]].id == "O" && box[b[2]].id == "O"){
-               // console.log("cpu is the Winner")
-                playBoard.style.opacity = "0.2"
-                popUp.style.display = "block"
-                marks.style.display ="block"
-                num1.innerHTML = "14"
-                num2.innerHTML = "32"
-                num3.innerHTML = "11"
-            }
-            else{
-                continue;
-            }
-            runBot = false;
-            robot(runBot);
+    ];
+
+    function checkWin (user){
+        if(!winner){
+            winningCombinations.some(combination => {
+                if(combination.every(index => user.played.includes(index))){
+                    user.score++;
+                    showScore();
+                    display()
+                }
+            })
+        } 
+        if(!winner &&  usedBox.length == 9){
+            ties++;
+            showScore();
+            display()
         }
     }
-    
-    
-    //Draw Function 
-    let drawFunc = ()=> {
-        if(box[0].id != "" && box[1].id != "" &&
-        box[2].id != "" && box[3].id != "" &&
-        box[4].id != "" && box[5].id != "" &&
-        box[6].id != "" && box[7].id != "" && box[8].id != ""){
-                //Add Outcome
-                playBoard.style.opacity = "0.5"
-                restart.style.display = "block"
-                marks.style.display ="block"
-                restartPara.innerHTML = "ROUND TIED"
-                num1.innerHTML = "14"
-                num2.innerHTML = "32"
-                num3.innerHTML = "11"
+
+    function isEmpty(i){
+        if(usedBox.includes(i)){
+            return false;
+        }
+        return true;
+    }
+
+    function reset(){
+        box.forEach(box => {
+           box.innerHTML = "" 
+        })
+        usedBox = [];
+        user1.played = [];
+        user2.played = [];
+        changeTurn = true;
+        checkTurn()
+    }
+
+    res.addEventListener("click", reset)
+
+    function checkTurn(){
+        if(changeTurn){
+            img.innerHTML = user1.symbol
+        }else{
+            img.innerHTML = user2.symbol
         }
     }
+
+    function showScore(){
+        num1.innerHTML = user1.score
+        num3.innerHTML = user2.score
+        num2.innerHTML = ties;
+    }
+
+    function display(){
+        if(changeTurn){
+            popUpX.style.display = "block"
+        }else{
+            popUp.style.display = "block"
+        }
+        if(!winner &&  usedBox.length == 9){
+            restart.style.display = "block"
+        }
+    }
+
+    winNext.addEventListener("click", ()=>{
+            box.forEach(box => {
+               box.innerHTML = "" 
+            })
+            usedBox = [];
+            user1.played = [];
+            user2.played = [];
+            changeTurn = true;
+            checkTurn()
+            popUpX.style.display = "none"
+        }
+    )
+
+    lostNext.addEventListener("click", ()=>{
+        box.forEach(box => {
+           box.innerHTML = "" 
+        })
+        usedBox = [];
+        user1.played = [];
+        user2.played = [];
+        changeTurn = true;
+        checkTurn()
+        popUp.style.display = "none"
+    }
+)
+    
+    
 
 
 
@@ -554,85 +551,4 @@ $(document).ready(() =>{
     $('.res').on('mouseleave', () =>{
         res.style.backgroundColor = ""
     })
-})
-
-
- //Add event listener to restart button
- winNext.addEventListener("click", () => {
-    //Reset game variales
-        boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    popUpX.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
-
-lostNext.addEventListener("click", () => {
-    boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    popUp.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
-
-
-res.addEventListener("click", () => {
-    boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    popUp.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
-
-
-restartNext.addEventListener("click", () => {
-    boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    restart.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
 })
