@@ -45,8 +45,9 @@ playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
-box = document.querySelectorAll(".box")
+boxes = document.querySelectorAll(".box")
 overlay = document.getElementById(".overlay")
+changeTurn = null;
 
 
 
@@ -89,7 +90,7 @@ playButton.onclick = ()=>{
     checkTurn()
 
     for(let i = 0; i < 9; i++){
-        box[i].addEventListener("click", () => {
+        boxes[i].addEventListener("click", () => {
             if(isEmpty(i)){
                 if(turn){
                 addSymbol(player1, i);
@@ -110,7 +111,7 @@ playButton.onclick = ()=>{
     }
     
     function addSymbol(player, i){
-        box[i].innerHTML = player.symbol;
+        boxes[i].innerHTML = player.symbol;
         player.played.push(i);
         usedCells.push(i);
        }
@@ -144,7 +145,7 @@ playButton.onclick = ()=>{
        }
 
        function reset(){
-        box.forEach(box => {
+        boxes.forEach(box => {
             box.innerHTML = "";
         })
         usedCells = [];
@@ -183,7 +184,7 @@ playButton.onclick = ()=>{
 
 
     winNext.addEventListener("click", ()=>{
-        box.forEach(box => {
+        boxes.forEach(box => {
             box.innerHTML = "" 
          })
          playBoard.style.opacity = "1"
@@ -199,7 +200,7 @@ playButton.onclick = ()=>{
     )
     
     lostNext.addEventListener("click", ()=>{
-        box.forEach(box => {
+        boxes.forEach(box => {
             box.innerHTML = "" 
          })
          playBoard.style.opacity = "1"
@@ -214,7 +215,7 @@ playButton.onclick = ()=>{
         })
 
         restartNext.addEventListener("click", ()=>{
-            box.forEach(box => {
+            boxes.forEach(box => {
                 box.innerHTML = "" 
              })
              usedCells = [];
@@ -227,8 +228,7 @@ playButton.onclick = ()=>{
              playBoard.style.opacity = "1"
              popUp.style.display = "none"
             popUpX.style.display = "none"
-            }
-            )
+            })
 }
 
 
@@ -298,8 +298,8 @@ $(document).ready(() =>{
     
         setInterval(bot, 3000);
     
-        for (let i = 0; i < box.length; i++){
-            box[i].addEventListener("click", () => {
+        for (let i = 0; i < boxes.length; i++){
+            boxes[i].addEventListener("click", () => {
                 if(!winner){
                     if(isEmpty(i)){
                         if(turn === true){ 
@@ -374,7 +374,7 @@ $(document).ready(() =>{
     }
     
     function reset(){
-        box.forEach(box => {
+        boxes.forEach(box => {
            box.innerHTML = "" 
         })
         usedBox = [];
@@ -390,9 +390,8 @@ $(document).ready(() =>{
     
     
     
-    
     function addBoxPlayer(user, i){
-        box[i].innerHTML = user.symbol;
+        boxes[i].innerHTML = user.symbol;
         user.played.push(i);
         usedBox.push(i); 
         if(turn === true){turn = false}
@@ -432,7 +431,7 @@ $(document).ready(() =>{
 
     
 winNext.addEventListener("click", ()=>{
-    box.forEach(box => {
+    boxes.forEach(box => {
         box.innerHTML = "" 
      })
      usedBox = [];
@@ -447,7 +446,7 @@ winNext.addEventListener("click", ()=>{
 )
 
 lostNext.addEventListener("click", ()=>{
-    box.forEach(box => {
+    boxes.forEach(box => {
         box.innerHTML = "" 
      })
      usedBox = [];
@@ -463,7 +462,7 @@ lostNext.addEventListener("click", ()=>{
 
 
     restartNext.addEventListener("click", ()=>{
-        box.forEach(box => {
+        boxes.forEach(box => {
             box.innerHTML = "" 
          })
          usedBox = [];

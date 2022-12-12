@@ -276,7 +276,7 @@ body {
 
 
 .img {
-    filter: grayscale(80%) contrast(100%) brightness(100%);
+    filter: grayscale(100%) contrast(100%) brightness(100%);
 }
 
 
@@ -369,7 +369,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 
 
 .marks section {
@@ -766,7 +765,7 @@ body {
 
 
 /*@mobile-mode*/
-@media screen and (max-width: 375px){
+@media screen and (max-width: 460px) and (min-width: 375px){
     .main-main {
         width:327px;
         height: 429px;
