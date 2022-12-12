@@ -749,7 +749,7 @@ body {
 
 
 /*@tablet-mode*/
-@media screen and (max-width: 768px) and (min-width: 765px) {
+@media screen and (max-width: 768px) and (min-width: 460px) {
     .popup .lost-mid {
         display: flex;
         width: 491px;
@@ -765,7 +765,7 @@ body {
 
 
 /*@mobile-mode*/
-@media screen and (max-width: 460px) and (min-width: 375px){
+@media screen and (max-width: 375px){
     .main-main {
         width:327px;
         height: 429px;
