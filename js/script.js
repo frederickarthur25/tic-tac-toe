@@ -31,7 +31,7 @@ let choose = document.querySelectorAll(".choose")
 let num1 = document.querySelector(".num1")
 let num2 = document.querySelector(".num2")
 let num3 = document.querySelector(".num3")
- img = document.querySelector(".img")
+let img = document.querySelector(".img")
 let xboxblue = document.getElementsByClassName(".xboxblue")
 let oboxyellow = document.getElementsByClassName(".oboxyellow")
 
@@ -46,218 +46,195 @@ marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
 box = document.querySelectorAll(".box")
-
-
-//Create array to hold board data
-let boardData = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-]
-
-//Find game variable
-let player = 1
-let gameOver = false;
+overlay = document.getElementById(".overlay")
 
 
 
-//single player mode
+
+
+//solo mode
 playButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
 
-    box.forEach((box, index) => {
-        box.addEventListener("click", () => {
-           placeMarker(index)
+    const winCombos = [
+        [0,1,2],
+        [0,3,6], 
+        [2,5,8], 
+        [6,7,8], 
+        [3,4,5], 
+        [1,4,7], 
+        [0,4,8], 
+        [2,4,6],
+    ]
+
+    let turn = true;
+    let usedCells = [];
+    let winner = false;
+    let ties = 0;
+
+    let player1 = {
+        symbol : `<img src="icon-x.svg">`,
+        played : [],
+        score : 0,
+    }
+
+    let player2 = {
+        symbol : `<img src="icon-o.svg">`,
+        played : [],
+        score : 0,
+    }
+
+    checkTurn()
+
+    for(let i = 0; i < 9; i++){
+        box[i].addEventListener("click", () => {
+            if(isEmpty(i)){
+                if(turn){
+                addSymbol(player1, i);
+                checkWin(player1)
+                turn = false;
+                checkTurn()
+            }else{
+                addSymbol(player2, i);
+                checkWin(player2)
+                turn = true;
+                checkTurn()
+            }
+        }else{
+            alert("choose an empty cell")
+        }
+            
         })
-    })
-    
-    //Create function for placing markers
-    function placeMarker(index){
-        //Determine row and column from index
-        let col = index % 3
-        let row = (index - col) / 3
-        //Checkif current box is empty
-        if(boardData[row][col] ==0 && gameOver == false){
-        boardData[row][col] = player;
-        //Change player
-        player *= -1;
-        //Update the screen with markers
-        drawMarkers();
-        //Check if anyone has won
-        checkResult();
-        }
     }
     
-    //Create function fro drawing player markers
-    function drawMarkers() {
-        //iterate over rows
-        for(let row = 0; row < 3; row++) {
-            //iterate over columns
-            for(let col = 0; col < 3; col++) {
-                // check if it is player 1's marker
-                if(boardData[row][col] == 1) {
-                   //update cell class to add  X  
-                   box[(row * 3) + col].innerHTML = `<img src="icon-x.svg">`
-                }else if(boardData[row][col] == -1) {
-                    //update cell class to add O
-                    box[(row * 3) + col].innerHTML = `<img src="icon-o.svg">`
-                }
-            }
-        }
-    }
-    
-    //Create function for checking results of the game
-    function checkResult () {
-        //Check rows and columns
-        for(let i = 0; i < 3; i++) {
-            let rowSum = boardData[i][0] + boardData[i][1] + boardData[i][2];
-            let colSum = boardData[0][i] + boardData[1][i] + boardData[2][i];
-            if(rowSum == 3 || colSum == 3) {
-                //Player 1 Wins
-                endGame(1);
-                return
-            }else if (rowSum == -3 || colSum == -3) {
-                //Player 1 Wins
-                endGame(2);
-                return
-            }
-        }
-        //Check diagonals
-        let diagonalSum1 = boardData[0][0] + boardData[1][1] + boardData[2][2];
-        let diagonalSum2 = boardData[0][2] + boardData[1][1] + boardData[2][0];
-        if(diagonalSum1 == 3 || diagonalSum2 == 3) {
-            //Player 1 Wins
-            endGame(1);
-            return
-        }else if (diagonalSum1 == -3 || diagonalSum2 == -3) {
-            //Player 1 Wins
-            endGame(2);
-            return
-        }
-    
-        //Check for tie
-        if(boardData[0].indexOf(0) == -1 &&
-        boardData[1].indexOf(0) == -1 &&
-        boardData[2].indexOf(0) == -1) {
-            endGame(0);
-            return
-        }
-    }
-    
-    //Function to end the game and display the result
-    function endGame(winner) {
-       //Trigger game Over
-       gameOver = true;
-       //Check if game ended in a tie
-       if(winner == 0) {
-            playBoard.style.opacity = "0.2"
-            restart.style.display = "block"
-            marks.style.display ="block"
-            restartPara.innerHTML = "ROUND TIED"
-            num1.innerHTML = "14"
-            num2.innerHTML = "32"
-            num3.innerHTML = "11"
-       }else if(player == 1) {
-            playBoard.style.opacity = "0.2"
-            popUp.style.display = "block"
-            marks.style.display ="block"
-            num1.innerHTML = "14"
-            num2.innerHTML = "32"
-            num3.innerHTML = "11"
-       }else{
-            playBoard.style.opacity = "0.2"
-            popUpX.style.display = "block"
-            marks.style.display ="block"
-            num1.innerHTML = "14"
-            num2.innerHTML = "32"
-            num3.innerHTML = "11"
+    function addSymbol(player, i){
+        box[i].innerHTML = player.symbol;
+        player.played.push(i);
+        usedCells.push(i);
        }
+
+       function checkWin(player){
+        if(!winner){
+            winCombos.some(combo => {
+                if(combo.every(index => player.played.includes(index))){
+                    player.score++;
+                    winner = true
+                    showScore()
+                    playBoard.style.opacity = "0.2"
+                    display()
+                }
+            })
+        }
+        
+        if(!winner && usedCells.length == 9){
+            ties++
+            showScore()
+            playBoard.style.opacity = "0.2"
+            display()
+        }
+       }
+
+       function isEmpty(i){
+        if(usedCells.includes(i)){
+            return false;
+        }
+            return true;
+       }
+
+       function reset(){
+        box.forEach(box => {
+            box.innerHTML = "";
+        })
+        usedCells = [];
+        player1.played = [];
+        player2.played = [];
+        turn = true
+        checkTurn()
+    }
+
+    res.addEventListener("click", reset);
+
+    function checkTurn(){
+        if(turn){
+            img.innerHTML = player1.symbol;
+        }else{
+            img.innerHTML = player2.symbol;
+        }
+    }
+
+    function showScore(){
+        num1.innerHTML = player1.score
+        num3.innerHTML = player2.score
+        num2.innerHTML = ties;
+    }
+
+    function display(){
+        if(turn){
+            popUpX.style.display = "block"
+        }else{
+            popUp.style.display = "block"
+        }
+        if(!winner &&  usedCells.length == 9){
+            restart.style.display = "block"
+        }
     }
 
 
-     //Add event listener to restart button
- winNext.addEventListener("click", () => {
-    //Reset game variales
-        boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
+    winNext.addEventListener("click", ()=>{
         box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    popUpX.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
-
-lostNext.addEventListener("click", () => {
-    boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    popUp.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
-
-
-res.addEventListener("click", () => {
-    boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    popUp.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
-
-
-restartNext.addEventListener("click", () => {
-    boardData = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ]
-        player = 1
-        gameOver = false;
-    //Reset game board
-        box.forEach(box => {
-        box.innerHTML = (``)
-    })
-    playBoard.style.opacity = "1"
-    restart.style.display = "none"
-    num1.innerText = "0"
-    num2.innerText = "0"
-    num3.innerText = "0"
-})
+            box.innerHTML = "" 
+         })
+         playBoard.style.opacity = "1"
+         usedCells = [];
+         player1.played = [];
+         player2.played = [];
+         emptyCells = [0,1,2,3,4,5,6,7,8];
+         winner = false
+         turn = true;
+         checkTurn()
+         popUpX.style.display = "none"
+    }
+    )
     
+    lostNext.addEventListener("click", ()=>{
+        box.forEach(box => {
+            box.innerHTML = "" 
+         })
+         playBoard.style.opacity = "1"
+         usedCells = [];
+         player1.played = [];
+         player2.played = [];
+         emptyCells = [0,1,2,3,4,5,6,7,8];
+         winner = false
+         turn = true;
+         checkTurn()
+         popUp.style.display = "none"
+        })
+
+        restartNext.addEventListener("click", ()=>{
+            box.forEach(box => {
+                box.innerHTML = "" 
+             })
+             usedCells = [];
+             player1.played = [];
+             player2.played = [];
+             emptyCells = [0,1,2,3,4,5,6,7,8];
+             turn = true;
+             checkTurn(turn)
+             restart.style.display = "none"
+             playBoard.style.opacity = "1"
+             popUp.style.display = "none"
+            popUpX.style.display = "none"
+            }
+            )
 }
+
+
+
+
+
 
 $(document).ready(() =>{
     $('#play').on('mouseenter', () =>{
@@ -285,56 +262,80 @@ $(document).ready(() =>{
 
 
 
-let changeTurn = true
-let usedBox = []
-let winner = false;
-let ties = 0
 
-let user1 = {
-    symbol : `<img src="icon-x.svg">`,
-    played : [],
-    score: 0
-}
 
-let user2 = {
-    symbol : `<img src="icon-o.svg">`,
-    played : [],
-    score: 0
-}
-   
 //Multi-player mode
     botButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
-
-    checkTurn()
-}
-        for (let i = 0; i < 9; i++){
+    
+    let ties = 0;
+    let score1 = 0;
+    let score2 = 0;
+    
+    
+    user1 = {
+        symbol : `<img src="icon-x.svg">`,
+        played :[],
+        score:0
+    }
+    
+    user2 = {
+        symbol : `<img src="icon-o.svg">`,
+        played :[],
+        score:0
+    }
+    
+    let computer = true;
+    let winner = false;
+    let usedBox = [];
+    let emptyCells = [0,1,2,3,4,5,6,7,8];
+    let turn = true;
+    
+       
+        checkTurn(turn)
+    
+        setInterval(bot, 3000);
+    
+        for (let i = 0; i < box.length; i++){
             box[i].addEventListener("click", () => {
-                if(isEmpty(i)){
-                    if(changeTurn){
-                        addSymbol(user1, i)
-                        checkWin(user1)
-                        changeTurn = false
-                        checkTurn()
+                if(!winner){
+                    if(isEmpty(i)){
+                        if(turn === true){ 
+                            if(!computer){
+                                addBoxPlayer(user2, i)
+                            checkWin(user2)
+                            }
+                            
+                        }else{
+                            addBoxPlayer(user1, i)
+                            if(computer){
+                                emptyCells.splice(emptyCells.indexOf(i), 1);
+                            }
+                            checkWin(user1)
+                        }
+                        checkTurn(turn)
                     }else{
-                        addSymbol(user2, i)
-                        checkWin(user2)
-                        changeTurn = true
-                        checkTurn()
+                        alert("choose an empty cell")
                     }
-                }else{
-                    alert("choose an empty cell")
                 }
             })
         }
-
-    function addSymbol(user, i){
-        box[i].innerHTML = user.symbol;
-        user.played.push(i)
-        usedBox.push(i);
-    } 
+    
+    
+    
+    function checkTurn(turn){
+        if(usedBox.length < 9 && !winner){
+            if(turn){
+                img.innerHTML = user2.symbol
+            }else{
+                img.innerHTML = user1.symbol
+            }
+        }else{
+            img.innerHTML = ""
+        }
+    }
     
     let winningCombinations = [
         [0,1,2],
@@ -346,31 +347,32 @@ let user2 = {
         [0,4,8], 
         [2,4,6],
     ];
-
-    function checkWin (user){
+    
+    function checkWin(user){
         if(!winner){
-            winningCombinations.some(combination => {
-                if(combination.every(index => user.played.includes(index))){
+            winningCombinations.some(item => {
+                if(item.every((i) => user.played.includes(i))){
                     user.score++;
                     showScore();
+                    winner = true;
                     display()
                 }
-            })
+            });
         } 
         if(!winner &&  usedBox.length == 9){
             ties++;
-            showScore();
             display()
+            showScore();
         }
     }
-
+    
     function isEmpty(i){
         if(usedBox.includes(i)){
             return false;
         }
         return true;
     }
-
+    
     function reset(){
         box.forEach(box => {
            box.innerHTML = "" 
@@ -378,64 +380,115 @@ let user2 = {
         usedBox = [];
         user1.played = [];
         user2.played = [];
-        changeTurn = true;
-        checkTurn()
+        emptyCells = [0,1,2,3,4,5,6,7,8];
+        winner = false
+        turn = true;
+        checkTurn(turn)
     }
-
+    
     res.addEventListener("click", reset)
-
-    function checkTurn(){
-        if(changeTurn){
-            img.innerHTML = user1.symbol
-        }else{
-            img.innerHTML = user2.symbol
-        }
+    
+    
+    
+    
+    function addBoxPlayer(user, i){
+        box[i].innerHTML = user.symbol;
+        user.played.push(i);
+        usedBox.push(i); 
+        if(turn === true){turn = false}
+        else{turn = true}   
     }
-
+    
     function showScore(){
         num1.innerHTML = user1.score
         num3.innerHTML = user2.score
         num2.innerHTML = ties;
     }
-
+    
     function display(){
-        if(changeTurn){
+        if(turn){
             popUpX.style.display = "block"
         }else{
             popUp.style.display = "block"
         }
         if(!winner &&  usedBox.length == 9){
             restart.style.display = "block"
+            restartPara.innerHTML = "ROUND TIED"
         }
     }
+    
+    
+    function bot(){
+    if(computer && !winner && turn){
+        let random = Math.floor(Math.random() * emptyCells.length);
+        addBoxPlayer(user2, emptyCells[random]);
+        emptyCells.splice(random,1);
+        checkWin(user2);
+        checkTurn(turn)
+    }
+    console.log(emptyCells)
+    }
+    bot();
 
-    winNext.addEventListener("click", ()=>{
-            box.forEach(box => {
-               box.innerHTML = "" 
-            })
-            usedBox = [];
-            user1.played = [];
-            user2.played = [];
-            changeTurn = true;
-            checkTurn()
-            popUpX.style.display = "none"
-        }
+    
+winNext.addEventListener("click", ()=>{
+    box.forEach(box => {
+        box.innerHTML = "" 
+     })
+     usedBox = [];
+     user1.played = [];
+     user2.played = [];
+     emptyCells = [0,1,2,3,4,5,6,7,8];
+     winner = false
+     turn = true;
+     checkTurn(turn)
+    popUpX.style.display = "none"
+}
+)
+
+lostNext.addEventListener("click", ()=>{
+    box.forEach(box => {
+        box.innerHTML = "" 
+     })
+     usedBox = [];
+     user1.played = [];
+     user2.played = [];
+     emptyCells = [0,1,2,3,4,5,6,7,8];
+     winner = false
+     turn = true;
+     checkTurn(turn)
+    popUp.style.display = "none"
+    }
     )
 
-    lostNext.addEventListener("click", ()=>{
+
+    restartNext.addEventListener("click", ()=>{
         box.forEach(box => {
-           box.innerHTML = "" 
-        })
-        usedBox = [];
-        user1.played = [];
-        user2.played = [];
-        changeTurn = true;
-        checkTurn()
-        popUp.style.display = "none"
-    }
-)
+            box.innerHTML = "" 
+         })
+         usedBox = [];
+         user1.played = [];
+         user2.played = [];
+         emptyCells = [0,1,2,3,4,5,6,7,8];
+         turn = true;
+         checkTurn(turn)
+         restart.style.display = "none"
+         popUp.style.display = "none"
+         popUpX.style.display = "none"
+        }
+        )
+
     
-    
+
+}
+
+
+
+
+
+
+        
+        
 
 
 
