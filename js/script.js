@@ -53,7 +53,7 @@ changeTurn = null;
 
 
 
-//solo mode
+//multiplayer
 playButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
@@ -74,6 +74,7 @@ playButton.onclick = ()=>{
     let usedCells = [];
     let winner = false;
     let ties = 0;
+
 
     let player1 = {
         symbol : `<img src="icon-x.svg">`,
@@ -128,13 +129,13 @@ playButton.onclick = ()=>{
                 }
             })
         }
-        
         if(!winner && usedCells.length == 9){
             ties++
             showScore()
             playBoard.style.opacity = "0.2"
             display()
         }
+        return true
        }
 
        function isEmpty(i){
@@ -164,6 +165,7 @@ playButton.onclick = ()=>{
             img.innerHTML = player2.symbol;
         }
     }
+
 
     function showScore(){
         num1.innerHTML = player1.score
@@ -208,7 +210,6 @@ playButton.onclick = ()=>{
          player1.played = [];
          player2.played = [];
          emptyCells = [0,1,2,3,4,5,6,7,8];
-         winner = false
          turn = true;
          checkTurn()
          popUp.style.display = "none"
@@ -223,6 +224,7 @@ playButton.onclick = ()=>{
              player2.played = [];
              emptyCells = [0,1,2,3,4,5,6,7,8];
              turn = true;
+             winner = false;
              checkTurn(turn)
              restart.style.display = "none"
              playBoard.style.opacity = "1"
@@ -264,7 +266,7 @@ $(document).ready(() =>{
 
 
 
-//Multi-player mode
+//solo vs computer
     botButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
@@ -417,7 +419,7 @@ $(document).ready(() =>{
     }
     
     
-    function bot(){
+    function bot(){ //ading a bot function
     if(computer && !winner && turn){
         let random = Math.floor(Math.random() * emptyCells.length);
         addBoxPlayer(user2, emptyCells[random]);
