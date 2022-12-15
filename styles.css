@@ -736,15 +736,13 @@ body {
 }
 
 
-#overlay {
-    position: absolute;
+.main-container.overlay {
     max-width: 100%;
-    max-height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    display: none;
+    background: #000000;
+    mix-blend-mode: hard-light;
+    opacity: 50%;
     z-index: 1;
 }
 

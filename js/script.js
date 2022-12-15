@@ -46,7 +46,7 @@ marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
 boxes = document.querySelectorAll(".box")
-overlay = document.getElementById(".overlay")
+overlay = document.getElementById("#overlay")
 changeTurn = null;
 
 
@@ -121,18 +121,28 @@ playButton.onclick = ()=>{
         if(!winner){
             winCombos.some(combo => {
                 if(combo.every(index => player.played.includes(index))){
-                    player.score++;
+                    if(winner !== true){
+                        player.symbol = `<img src="icon-x-outline.svg">`
+                        player.score++;
+                        winner = true
+                        showScore()
+                        mainCont.classList.add("overlay")
+                        display()
+                    }else{
+                        boxes.innerHTML = `<img src="icon-o-outline.svg">`
+                        player.score++;
                     winner = true
                     showScore()
-                    playBoard.style.opacity = "0.2"
+                    mainCont.classList.add("overlay")
                     display()
+                    }   
                 }
             })
         }
         if(!winner && usedCells.length == 9){
             ties++
             showScore()
-            playBoard.style.opacity = "0.2"
+            mainCont.classList.add("overlay")
             display()
         }
         return true
@@ -149,6 +159,7 @@ playButton.onclick = ()=>{
         boxes.forEach(box => {
             box.innerHTML = "";
         })
+        winner = false;
         usedCells = [];
         player1.played = [];
         player2.played = [];
@@ -195,6 +206,7 @@ playButton.onclick = ()=>{
          player2.played = [];
          emptyCells = [0,1,2,3,4,5,6,7,8];
          winner = false
+         mainCont.classList.remove("overlay")
          turn = true;
          checkTurn()
          popUpX.style.display = "none"
@@ -213,6 +225,7 @@ playButton.onclick = ()=>{
          turn = true;
          checkTurn()
          popUp.style.display = "none"
+         mainCont.classList.remove("overlay")
         })
 
         restartNext.addEventListener("click", ()=>{
@@ -226,6 +239,7 @@ playButton.onclick = ()=>{
              turn = true;
              winner = false;
              checkTurn(turn)
+             mainCont.classList.remove("overlay")
              restart.style.display = "none"
              playBoard.style.opacity = "1"
              popUp.style.display = "none"
@@ -358,6 +372,7 @@ $(document).ready(() =>{
                     showScore();
                     winner = true;
                     display()
+                    mainCont.classList.add("overlay")
                 }
             });
         } 
@@ -365,6 +380,7 @@ $(document).ready(() =>{
             ties++;
             display()
             showScore();
+            mainCont.classList.add("overlay")
         }
     }
     
@@ -444,6 +460,7 @@ winNext.addEventListener("click", ()=>{
      turn = true;
      checkTurn(turn)
     popUpX.style.display = "none"
+    mainCont.classList.remove("overlay")
 }
 )
 
@@ -459,6 +476,7 @@ lostNext.addEventListener("click", ()=>{
      turn = true;
      checkTurn(turn)
     popUp.style.display = "none"
+    mainCont.classList.remove("overlay")
     }
     )
 
@@ -476,6 +494,7 @@ lostNext.addEventListener("click", ()=>{
          restart.style.display = "none"
          popUp.style.display = "none"
          popUpX.style.display = "none"
+         mainCont.classList.remove("overlay")
         }
         )
 
