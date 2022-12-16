@@ -47,7 +47,6 @@ btn = document.querySelector(".btn"),
 allBox = document.querySelectorAll("section button");
 boxes = document.querySelectorAll(".box")
 overlay = document.getElementById("#overlay")
-changeTurn = null;
 
 
 
@@ -55,6 +54,7 @@ changeTurn = null;
 
 //multiplayer
 playButton.onclick = ()=>{
+    backgroundColor = "red"
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
@@ -90,7 +90,7 @@ playButton.onclick = ()=>{
 
     checkTurn()
 
-    for(let i = 0; i < 9; i++){
+    for(let i = 0; i < 9; i++){//adding symbols to cells
         boxes[i].addEventListener("click", () => {
             if(isEmpty(i)){
                 if(turn){
@@ -104,10 +104,10 @@ playButton.onclick = ()=>{
                 turn = true;
                 checkTurn()
             }
+            checkTurn()
         }else{
             alert("choose an empty cell")
-        }
-            
+        } 
         })
     }
     
@@ -121,21 +121,11 @@ playButton.onclick = ()=>{
         if(!winner){
             winCombos.some(combo => {
                 if(combo.every(index => player.played.includes(index))){
-                    if(winner !== true){
-                        player.symbol = `<img src="icon-x-outline.svg">`
-                        player.score++;
-                        winner = true
-                        showScore()
-                        mainCont.classList.add("overlay")
-                        display()
-                    }else{
-                        boxes.innerHTML = `<img src="icon-o-outline.svg">`
-                        player.score++;
+                    player.score++;
                     winner = true
                     showScore()
                     mainCont.classList.add("overlay")
                     display()
-                    }   
                 }
             })
         }
@@ -224,6 +214,7 @@ playButton.onclick = ()=>{
          emptyCells = [0,1,2,3,4,5,6,7,8];
          turn = true;
          checkTurn()
+         winner = false;
          popUp.style.display = "none"
          mainCont.classList.remove("overlay")
         })
