@@ -825,7 +825,7 @@ body {
     .slider {
         height: 54px;
         width: 131.99px;
-        left: 5%;
+        right: 2%;
         top: 9px;
     }
 
@@ -904,6 +904,10 @@ body {
         font-weight: 700;
         line-height: 25px;
         letter-spacing: 1.25px;
+    }
+
+    .slider.active{
+        left: 2%
     }
 
     .box img{
