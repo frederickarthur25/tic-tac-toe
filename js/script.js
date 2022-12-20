@@ -32,7 +32,7 @@ let num1 = document.querySelector(".num1")
 let num2 = document.querySelector(".num2")
 let num3 = document.querySelector(".num3")
 let img = document.querySelector(".img")
-let xboxblue = document.getElementsByClassName(".xboxblue")
+let xboxblue = document.getElementById(".xboxblue")
 let oboxyellow = document.getElementsByClassName(".oboxyellow")
 
 //Selecting "Starting Page" Tags
@@ -44,13 +44,37 @@ playBoard = document.querySelector(".play-board")
 playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
 btn = document.querySelector(".btn"),
-allBox = document.querySelectorAll("section button");
+iconX = document.querySelector(".icon-x");
+iconO = document.querySelector(".icon-o");
 boxes = document.querySelectorAll(".box")
+fig1 = document.querySelector(".fig-1")
+fig2 = document.querySelector(".fig-2")
+playerActive = document.querySelector(".player-2 p")
 overlay = document.getElementById("#overlay")
+let slider = document.querySelector(".slider")
+
+
+change = true;
+changeTurn = true;
 
 
 
 
+slider.onclick = () =>{
+    if(change){
+        slider.classList.add("active");
+        iconX.classList.add("active")
+        iconO.classList.add("active")
+        change = false
+        playerActive.innerText ="Remember: O goes first"
+    }else{
+        slider.classList.remove("active");
+        iconX.classList.remove("active");
+        iconO.classList.remove("active")
+        change = true
+        playerActive.innerText ="Remember: X goes first"
+    }
+}
 
 //multiplayer
 playButton.onclick = ()=>{
@@ -58,6 +82,8 @@ playButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
+    fig1.innerText = "X (P2)"
+    fig2.innerText = "O (P1)"
 
     const winCombos = [
         [0,1,2],
@@ -69,6 +95,9 @@ playButton.onclick = ()=>{
         [0,4,8], 
         [2,4,6],
     ]
+
+
+    
 
     let turn = true;
     let usedCells = [];
@@ -90,6 +119,7 @@ playButton.onclick = ()=>{
 
     checkTurn()
 
+
     for(let i = 0; i < 9; i++){//adding symbols to cells
         boxes[i].addEventListener("click", () => {
             if(isEmpty(i)){
@@ -110,6 +140,7 @@ playButton.onclick = ()=>{
         } 
         })
     }
+
     
     function addSymbol(player, i){
         boxes[i].innerHTML = player.symbol;
@@ -156,6 +187,9 @@ playButton.onclick = ()=>{
         turn = true
         checkTurn()
     }
+
+
+    
 
     res.addEventListener("click", reset);
 

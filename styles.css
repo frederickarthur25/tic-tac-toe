@@ -119,26 +119,35 @@ body {
 }
 
 .icon-x {
-    filter: grayscale(90%) brightness(40%);
     height: 32px;
     width: 32px;
     position: absolute;
     top: 20px;
-    left: 107px;
+    left: 20%;
     cursor: default;
     z-index: 5;
+    filter: grayscale(80%) brightness(100%);
+}
+
+.icon-x.active {
+    filter: grayscale(90%) brightness(30%);
 }
 
 .slider {
     height: 54px;
     width: 198px;
     position: absolute;
-    left: 20px;
+    right: 2%;
     top: 9px;
     border-style: none;
     border-radius: 10px;
     background-color: #A8BFC9;
     z-index: 1;
+    cursor: pointer;
+}
+
+.slider.active{
+    left: 2%
 }
 
 .icon-o {
@@ -149,7 +158,10 @@ body {
     left: 70%;
     top: 22px;
     z-index: 3
+}
 
+.icon-o.active{
+    filter: grayscale(100%) brightness(100%);
 }
 
 .btn {
@@ -204,7 +216,6 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    cursor: pointer;
     display: none;
 }
 
@@ -234,7 +245,9 @@ body {
 .play-board .details .logo {
     width: 71.97px;
     height: 32px;
+    cursor: auto;
 }
+
 
 .x-turn {
         width: 140px;
@@ -398,6 +411,27 @@ body {
 }
 
 .marks section .fig {
+    text-align: center;
+    font-family: 'Outfit';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.875px;
+    color: #1A2A33;
+}
+
+.marks section  .fig-1{
+    text-align: center;
+    font-family: 'Outfit';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.875px;
+    color: #1A2A33;
+}
+
+
+.marks section  .fig-2{
     text-align: center;
     font-family: 'Outfit';
     font-size: 14px;
