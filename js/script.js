@@ -6,61 +6,64 @@
 
 //Selecting "Outcome" Tags
 let popUp = document.querySelector(".popup")
-let lostPop = document.querySelector(".lost-pop")
-let lostPara = document.querySelector(".lost-para")
-let lostMid = document.querySelector(".lost-mid")
-let lostBtn = document.querySelector(".lost-btn")
 let lostQuit = document.querySelector(".lost-quit")
 let lostNext = document.querySelector(".lost-next")
 let popUpX = document.querySelector(".popup-x")
-let winPop = document.querySelector(".win-pop")
-let winPara = document.querySelector(".win-para")
-let winMid = document.querySelector(".win-mid")
-let winBtn = document.querySelector(".win-btn")
 let winQuit = document.querySelector(".win-quit")
 let winNext = document.querySelector(".win-next")
-let restart = document.querySelector(".restart")
-let restartPop = document.querySelector(".restart-pop")
-let restartPara = document.querySelector(".restart-para")
-let restartBt = document.querySelector(".restart-bt")
 let restartQuit = document.querySelector(".restart-quit")
 let restartNext = document.querySelector(".restart-next")
-let restartBtn = document.querySelector(".restart-btn")
 let res = document.querySelector(".res")
-let choose = document.querySelectorAll(".choose")
 let num1 = document.querySelector(".num1")
 let num2 = document.querySelector(".num2")
 let num3 = document.querySelector(".num3")
 let img = document.querySelector(".img")
-let xboxblue = document.getElementById(".xboxblue")
-let oboxyellow = document.getElementsByClassName(".oboxyellow")
-
-//Selecting "Starting Page" Tags
-let mainMain = document.querySelector(".main-main"),
+mainMain = document.querySelector(".main-main"),
 mainCont = document.querySelector(".main-container"),
 playButton = document.querySelector("#play"),
 botButton = document.querySelector(".bot"),
 playBoard = document.querySelector(".play-board")
-playArea = document.querySelector(".play-area")
 marks = document.querySelector(".marks"),
-btn = document.querySelector(".btn"),
-iconX = document.querySelector(".icon-x");
-iconO = document.querySelector(".icon-o");
 boxes = document.querySelectorAll(".box")
 fig1 = document.querySelector(".fig-1")
 fig2 = document.querySelector(".fig-2")
 playerActive = document.querySelector(".player-2 p")
 overlay = document.getElementById("#overlay")
-let slider = document.querySelector(".slider")
+slider = document.querySelector(".slider")
+
+
+
+$(document).ready(() =>{
+    $('#play').on('mouseenter', () =>{
+        playButton.style.backgroundColor = "#65E9E4" 
+    })
+})
+
+$(document).ready(() =>{
+    $('#play').on('mouseleave', () =>{
+        playButton.style.backgroundColor = "" 
+    })
+})
+//hover styles for bot
+    $(document).ready(() =>{
+        $('.bot').on('mouseenter', () =>{
+            botButton.style.backgroundColor = "#FFC860" 
+        })
+    })
+    
+    $(document).ready(() =>{
+        $('.bot').on('mouseleave', () =>{
+            botButton.style.backgroundColor = "" 
+        })
+    })
+
+
 
 
 change = true;
-changeTurn = true;
+turn = true;
 
-
-
-
-slider.onclick = () =>{
+slider.onclick = () =>{//slider to show whether either "X" or "O" has togo first
     if(change){
         slider.classList.add("active");
         iconX.classList.add("active")
@@ -78,7 +81,6 @@ slider.onclick = () =>{
 
 //multiplayer
 playButton.onclick = ()=>{
-    backgroundColor = "red"
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
@@ -97,8 +99,8 @@ playButton.onclick = ()=>{
     ]
 
 
+   
     
-
     let turn = true;
     let usedCells = [];
     let winner = false;
@@ -119,6 +121,29 @@ playButton.onclick = ()=>{
 
     checkTurn()
 
+ //Hover style for box when a user tries to click on a box
+    boxes.forEach(items => {
+    items.addEventListener("mouseenter", () => {
+        if(turn !== false){
+            items.innerHTML = `<img src="icon-x-outline.svg">`
+            turn = true;
+        }else{
+            items.innerHTML = `<img src="icon-o-outline.svg">`
+            turn = false;
+        }
+    })
+})
+
+    boxes.forEach(items => {
+    items.addEventListener("mouseleave", () => {
+        if(turn == false){
+            items.innerHTML = ``
+        }else{
+            items.innerHTML = ``
+        }
+    })
+})
+    
 
     for(let i = 0; i < 9; i++){//adding symbols to cells
         boxes[i].addEventListener("click", () => {
@@ -146,7 +171,7 @@ playButton.onclick = ()=>{
         boxes[i].innerHTML = player.symbol;
         player.played.push(i);
         usedCells.push(i);
-       }
+    }
 
        function checkWin(player){
         if(!winner){
@@ -156,7 +181,7 @@ playButton.onclick = ()=>{
                     winner = true
                     showScore()
                     mainCont.classList.add("overlay")
-                    display()
+                    display()  
                 }
             })
         }
@@ -167,14 +192,14 @@ playButton.onclick = ()=>{
             display()
         }
         return true
-       }
+    }
 
        function isEmpty(i){
         if(usedCells.includes(i)){
             return false;
         }
             return true;
-       }
+    }
 
        function reset(){
         boxes.forEach(box => {
@@ -188,8 +213,6 @@ playButton.onclick = ()=>{
         checkTurn()
     }
 
-
-    
 
     res.addEventListener("click", reset);
 
@@ -219,7 +242,6 @@ playButton.onclick = ()=>{
         }
     }
 
-
     winNext.addEventListener("click", ()=>{
         boxes.forEach(box => {
             box.innerHTML = "" 
@@ -234,8 +256,7 @@ playButton.onclick = ()=>{
          turn = true;
          checkTurn()
          popUpX.style.display = "none"
-    }
-    )
+    })
     
     lostNext.addEventListener("click", ()=>{
         boxes.forEach(box => {
@@ -251,9 +272,9 @@ playButton.onclick = ()=>{
          winner = false;
          popUp.style.display = "none"
          mainCont.classList.remove("overlay")
-        })
+    })
 
-        restartNext.addEventListener("click", ()=>{
+    restartNext.addEventListener("click", ()=>{
             boxes.forEach(box => {
                 box.innerHTML = "" 
              })
@@ -268,39 +289,9 @@ playButton.onclick = ()=>{
              restart.style.display = "none"
              playBoard.style.opacity = "1"
              popUp.style.display = "none"
-            popUpX.style.display = "none"
-            })
+             popUpX.style.display = "none"
+    })
 }
-
-
-
-
-
-
-$(document).ready(() =>{
-    $('#play').on('mouseenter', () =>{
-        playButton.style.backgroundColor = "#65E9E4" 
-    })
-})
-
-$(document).ready(() =>{
-    $('#play').on('mouseleave', () =>{
-        playButton.style.backgroundColor = "" 
-    })
-})
-//hover styles for bot
-    $(document).ready(() =>{
-        $('.bot').on('mouseenter', () =>{
-            botButton.style.backgroundColor = "#FFC860" 
-        })
-    })
-    
-    $(document).ready(() =>{
-        $('.bot').on('mouseleave', () =>{
-            botButton.style.backgroundColor = "" 
-        })
-    })
-
 
 
 
@@ -362,7 +353,7 @@ $(document).ready(() =>{
                     }
                 }
             })
-        }
+    }
     
     
     
@@ -468,12 +459,11 @@ $(document).ready(() =>{
         checkWin(user2);
         checkTurn(turn)
     }
-    console.log(emptyCells)
+    //console.log(emptyCells)
     }
     bot();
 
-    
-winNext.addEventListener("click", ()=>{
+    winNext.addEventListener("click", ()=>{
     boxes.forEach(box => {
         box.innerHTML = "" 
      })
@@ -484,12 +474,11 @@ winNext.addEventListener("click", ()=>{
      winner = false
      turn = true;
      checkTurn(turn)
-    popUpX.style.display = "none"
-    mainCont.classList.remove("overlay")
-}
-)
+     popUpX.style.display = "none"
+     mainCont.classList.remove("overlay")
+    })
 
-lostNext.addEventListener("click", ()=>{
+    lostNext.addEventListener("click", ()=>{
     boxes.forEach(box => {
         box.innerHTML = "" 
      })
@@ -502,8 +491,7 @@ lostNext.addEventListener("click", ()=>{
      checkTurn(turn)
     popUp.style.display = "none"
     mainCont.classList.remove("overlay")
-    }
-    )
+    })
 
 
     restartNext.addEventListener("click", ()=>{
@@ -520,22 +508,8 @@ lostNext.addEventListener("click", ()=>{
          popUp.style.display = "none"
          popUpX.style.display = "none"
          mainCont.classList.remove("overlay")
-        }
-        )
-
-    
-
+        })
 }
-
-
-
-
-
-
-        
-        
-
-
 
 
 winQuit.onclick = () => {
