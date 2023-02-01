@@ -70,12 +70,32 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
-.inner-inner.active .slider{
-    right: 50%;
-    transition: all 0.3s ease-in;
+.x-hover:hover::after{
+    content: url("icon-x-outline.svg")
 }
+.o-hover:hover::after{
+    content: url("icon-o-outline.svg")
+}
+
+.slider2{
+    height: 54px;
+    width: 196px;
+    position: absolute;
+    left: 2%;
+    top: 9px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #1A2A33;
+    z-index: 1;
+    display: block;
+    cursor: pointer;
+}
+
+
+
 .player {
     width: 191px;
     height: 20px;

@@ -30,8 +30,9 @@ fig2 = document.querySelector(".fig-2")
 playerActive = document.querySelector(".player-2 p")
 overlay = document.getElementById("#overlay")
 slider = document.querySelector(".slider")
+slider2 = document.querySelector(".slider2")
 
-
+let turn = true;
 
 $(document).ready(() =>{
     $('#play').on('mouseenter', () =>{
@@ -57,27 +58,42 @@ $(document).ready(() =>{
         })
     })
 
+    $(document).ready(() =>{
+        $('.slider2').on('mouseenter', () =>{
+            slider2.style.backgroundColor = "rgba(168, 191, 201, 0.05)" 
+        })
+    })
+    
+    $(document).ready(() =>{
+        $('.slider2').on('mouseleave', () =>{
+            slider2.style.backgroundColor = "" 
+        })
+    })
 
-
+    function setHover(){
+        //remove all hover
+        boxes.forEach(box=>{
+            box.classList.remove("x-hover")
+            box.classList.remove("o-hover")
+        });
+        const hoverClassX = "x-hover"
+        const hoverClassO = "o-hover"
+        boxes.forEach(box=>{
+            if(turn){
+                if(box.innerHTML == ""){
+                    box.classList.add(hoverClassX)
+                }
+            }
+            if(!turn){
+                if(box.innerHTML == ""){
+                    box.classList.add(hoverClassO)
+                }
+            }
+        })
+    }
 
 change = true;
-turn = true;
 
-slider.onclick = () =>{//slider to show whether either "X" or "O" has togo first
-    if(change){
-        slider.classList.add("active");
-        iconX.classList.add("active")
-        iconO.classList.add("active")
-        change = false
-        playerActive.innerText ="Remember: O goes first"
-    }else{
-        slider.classList.remove("active");
-        iconX.classList.remove("active");
-        iconO.classList.remove("active")
-        change = true
-        playerActive.innerText ="Remember: X goes first"
-    }
-}
 
 //multiplayer
 playButton.onclick = ()=>{
@@ -101,7 +117,7 @@ playButton.onclick = ()=>{
 
    
     
-    let turn = true;
+    
     let usedCells = [];
     let winner = false;
     let ties = 0;
@@ -121,30 +137,9 @@ playButton.onclick = ()=>{
 
     checkTurn()
 
- //Hover style for box when a user tries to click on a box
-    boxes.forEach(items => {
-    items.addEventListener("mouseenter", () => {
-        if(turn !== false){
-            items.innerHTML = `<img src="icon-x-outline.svg">`
-            turn = true;
-        }else{
-            items.innerHTML = `<img src="icon-o-outline.svg">`
-            turn = false;
-        }
-    })
-})
 
-    boxes.forEach(items => {
-    items.addEventListener("mouseleave", () => {
-        if(turn == false){
-            items.innerHTML = ``
-        }else{
-            items.innerHTML = ``
-        }
-    })
-})
+    setHover()
     
-
     for(let i = 0; i < 9; i++){//adding symbols to cells
         boxes[i].addEventListener("click", () => {
             if(isEmpty(i)){
@@ -163,7 +158,9 @@ playButton.onclick = ()=>{
         }else{
             alert("choose an empty cell")
         } 
+        setHover()
         })
+        
     }
 
     
@@ -211,6 +208,7 @@ playButton.onclick = ()=>{
         player2.played = [];
         turn = true
         checkTurn()
+        setHover()
     }
 
 
@@ -256,6 +254,7 @@ playButton.onclick = ()=>{
          turn = true;
          checkTurn()
          popUpX.style.display = "none"
+         setHover()
     })
     
     lostNext.addEventListener("click", ()=>{
@@ -272,6 +271,7 @@ playButton.onclick = ()=>{
          winner = false;
          popUp.style.display = "none"
          mainCont.classList.remove("overlay")
+         setHover()
     })
 
     restartNext.addEventListener("click", ()=>{
@@ -290,6 +290,7 @@ playButton.onclick = ()=>{
              playBoard.style.opacity = "1"
              popUp.style.display = "none"
              popUpX.style.display = "none"
+             setHover()
     })
 }
 
@@ -303,8 +304,6 @@ playButton.onclick = ()=>{
     marks.style.display = "block" //hide the marks section
     
     let ties = 0;
-    let score1 = 0;
-    let score2 = 0;
     
     
     user1 = {
@@ -327,6 +326,7 @@ playButton.onclick = ()=>{
     
        
         checkTurn(turn)
+        setHover()
     
         setInterval(bot, 3000);
     
@@ -352,6 +352,7 @@ playButton.onclick = ()=>{
                         alert("choose an empty cell")
                     }
                 }
+                setHover()
             })
     }
     
@@ -460,6 +461,7 @@ playButton.onclick = ()=>{
         checkTurn(turn)
     }
     //console.log(emptyCells)
+    setHover()
     }
     bot();
 
@@ -476,6 +478,7 @@ playButton.onclick = ()=>{
      checkTurn(turn)
      popUpX.style.display = "none"
      mainCont.classList.remove("overlay")
+     setHover()
     })
 
     lostNext.addEventListener("click", ()=>{
@@ -491,6 +494,7 @@ playButton.onclick = ()=>{
      checkTurn(turn)
     popUp.style.display = "none"
     mainCont.classList.remove("overlay")
+    setHover()
     })
 
 
@@ -508,6 +512,7 @@ playButton.onclick = ()=>{
          popUp.style.display = "none"
          popUpX.style.display = "none"
          mainCont.classList.remove("overlay")
+         setHover()
         })
 }
 
