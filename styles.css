@@ -80,6 +80,18 @@ body {
     content: url("icon-o-outline.svg")
 }
 
+.box.highlight-x{
+    background-color: #118C87;
+}
+
+.box.highlight-o{
+    background-color: #CC8B13;
+}
+
+.box.inactiveCells{
+    pointer-events: none;
+}
+
 .slider2{
     height: 54px;
     width: 196px;
@@ -171,7 +183,7 @@ body {
 }
 
 .icon-o {
-    filter: contrast(0%) brightness(40%);
+    filter: contrast(0%) brightness(30%);
     height: 31.74px;
     width: 31.74px;
     position: absolute;
@@ -309,6 +321,9 @@ body {
 
 
 .img {
+    filter: grayscale(100%) contrast(100%) brightness(100%);
+}
+.box.img {
     filter: grayscale(100%) contrast(100%) brightness(100%);
 }
 

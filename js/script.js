@@ -2,6 +2,8 @@
 //X= <img src="icon-x.svg">
 //O= <img src="icon-o-outline.svg">
 //X= <img src="icon-x-outline.svg">
+//<i class="fa fa-circle-o" aria-hidden="true"></i>
+//<i class="fa fa-times" aria-hidden="true"></i>
 
 
 //Selecting "Outcome" Tags
@@ -31,21 +33,23 @@ playerActive = document.querySelector(".player-2 p")
 overlay = document.getElementById("#overlay")
 slider = document.querySelector(".slider")
 slider2 = document.querySelector(".slider2")
+restart = document.querySelector(".restart")
+restartPara = document.querySelector(".restart-para")
 
 let turn = true;
 
-$(document).ready(() =>{
-    $('#play').on('mouseenter', () =>{
-        playButton.style.backgroundColor = "#65E9E4" 
+    $(document).ready(() =>{
+        $('#play').on('mouseenter', () =>{
+            playButton.style.backgroundColor = "#65E9E4" 
+        })
     })
-})
 
-$(document).ready(() =>{
-    $('#play').on('mouseleave', () =>{
-        playButton.style.backgroundColor = "" 
+    $(document).ready(() =>{
+        $('#play').on('mouseleave', () =>{
+            playButton.style.backgroundColor = "" 
+        })
     })
-})
-//hover styles for bot
+    //hover styles for bot
     $(document).ready(() =>{
         $('.bot').on('mouseenter', () =>{
             botButton.style.backgroundColor = "#FFC860" 
@@ -92,11 +96,18 @@ $(document).ready(() =>{
         })
     }
 
-change = true;
+
+    function inactiveCells(){
+        boxes.forEach(box =>{
+            box.classList.add('inactiveCells')
+        })
+    }
+
+    change = true;
 
 
-//multiplayer
-playButton.onclick = ()=>{
+    //multiplayer
+    playButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
     marks.style.display = "block" //hide the marks section
@@ -113,8 +124,6 @@ playButton.onclick = ()=>{
         [0,4,8], 
         [2,4,6],
     ]
-
-
    
     
     
@@ -136,8 +145,6 @@ playButton.onclick = ()=>{
     }
 
     checkTurn()
-
-
     setHover()
     
     for(let i = 0; i < 9; i++){//adding symbols to cells
@@ -179,6 +186,8 @@ playButton.onclick = ()=>{
                     showScore()
                     mainCont.classList.add("overlay")
                     display()  
+                    highlight(combo)
+                    inactiveCells()
                 }
             })
         }
@@ -190,6 +199,21 @@ playButton.onclick = ()=>{
         }
         return true
     }
+    
+    //change the boxes after win
+    function highlight(combo){
+        combo.forEach(index =>{
+           if(turn){
+            boxes[index].classList.add('highlight-x')
+            boxes[index].innerHTML = `<img src="cross.png">`
+           }else{
+            boxes[index].classList.add('highlight-o')
+            boxes[index].innerHTML = `<img src="Black_circle.png">`
+           }
+        })
+    }
+
+    
 
        function isEmpty(i){
         if(usedCells.includes(i)){
@@ -243,6 +267,8 @@ playButton.onclick = ()=>{
     winNext.addEventListener("click", ()=>{
         boxes.forEach(box => {
             box.innerHTML = "" 
+            box.classList.remove('inactiveCells')
+            box.classList.remove('highlight-x')
          })
          playBoard.style.opacity = "1"
          usedCells = [];
@@ -257,9 +283,12 @@ playButton.onclick = ()=>{
          setHover()
     })
     
+
     lostNext.addEventListener("click", ()=>{
         boxes.forEach(box => {
             box.innerHTML = "" 
+            box.classList.remove('inactiveCells')
+            box.classList.remove('highlight-o')
          })
          playBoard.style.opacity = "1"
          usedCells = [];
@@ -274,6 +303,7 @@ playButton.onclick = ()=>{
          setHover()
     })
 
+    
     restartNext.addEventListener("click", ()=>{
             boxes.forEach(box => {
                 box.innerHTML = "" 
@@ -297,7 +327,7 @@ playButton.onclick = ()=>{
 
 
 
-//solo vs computer
+    //solo vs computer
     botButton.onclick = ()=>{
     mainMain.classList.add("hide"); //hide the main container
     playBoard.style.display = "block"; //show the main container
@@ -383,13 +413,15 @@ playButton.onclick = ()=>{
     
     function checkWin(user){
         if(!winner){
-            winningCombinations.some(item => {
-                if(item.every((i) => user.played.includes(i))){
+            winningCombinations.some(combo => {
+                if(combo.every((i) => user.played.includes(i))){
                     user.score++;
                     showScore();
                     winner = true;
                     display()
                     mainCont.classList.add("overlay")
+                    inactiveCells()
+                    highlight(combo)
                 }
             });
         } 
@@ -401,6 +433,19 @@ playButton.onclick = ()=>{
         }
     }
     
+
+    //change the boxes after win
+    function highlight(combo){
+        combo.forEach(index =>{
+           if(turn){
+            boxes[index].classList.add('highlight-x')
+            boxes[index].innerHTML = `<img src="cross.png">`
+           }else{
+            boxes[index].classList.add('highlight-o')
+            boxes[index].innerHTML = `<img src="Black_circle.png">`
+           }
+        })
+    }
     function isEmpty(i){
         if(usedBox.includes(i)){
             return false;
@@ -468,6 +513,8 @@ playButton.onclick = ()=>{
     winNext.addEventListener("click", ()=>{
     boxes.forEach(box => {
         box.innerHTML = "" 
+        box.classList.remove('inactiveCells')
+        box.classList.remove('highlight-x')
      })
      usedBox = [];
      user1.played = [];
@@ -484,6 +531,8 @@ playButton.onclick = ()=>{
     lostNext.addEventListener("click", ()=>{
     boxes.forEach(box => {
         box.innerHTML = "" 
+        box.classList.remove('inactiveCells')
+        box.classList.remove('highlight-o')
      })
      usedBox = [];
      user1.played = [];
@@ -517,115 +566,115 @@ playButton.onclick = ()=>{
 }
 
 
-winQuit.onclick = () => {
-    location.reload()
-}
+    winQuit.onclick = () => {
+        location.reload()
+    }
 
 
-lostQuit.onclick = () => {
-    location.reload()
-}
+    lostQuit.onclick = () => {
+        location.reload()
+    }
 
 
-restartQuit.onclick = () => {
-    location.reload()
-}
+    restartQuit.onclick = () => {
+        location.reload()
+    }
 
 
-//adding background color on mouseenter to NEXT ROUND button
-$(document).ready(() =>{
-    $('.win-next').on('mouseenter', () =>{
-        winNext.style.backgroundColor = "#FFC860"
+    //adding background color on mouseenter to NEXT ROUND button
+    $(document).ready(() =>{
+        $('.win-next').on('mouseenter', () =>{
+            winNext.style.backgroundColor = "#FFC860"
+        })
     })
-})
 
-//removing background color on mouseleave to NEXT ROUND button
-$(document).ready(() =>{
+    //removing background color on mouseleave to NEXT ROUND button
+    $(document).ready(() =>{
     $('.win-next').on('mouseleave', () =>{
         winNext.style.backgroundColor = ""
     })
-})
-
-//adding background color to QUIT button
-$(document).ready(() =>{
-    $('.win-quit').on('mouseenter', () =>{
-        winQuit.style.backgroundColor = "#DBE8ED"
     })
-})
 
-$(document).ready(() =>{
-    $('.win-quit').on('mouseleave', () =>{
-        winQuit.style.backgroundColor = ""
+    //adding background color to QUIT button
+    $(document).ready(() =>{
+        $('.win-quit').on('mouseenter', () =>{
+            winQuit.style.backgroundColor = "#DBE8ED"
+        })
     })
-})
 
-
-
-//adding background color on mouseenter to NEXT ROUND button
-$(document).ready(() =>{
-    $('.restart-next').on('mouseenter', () =>{
-        restartNext.style.backgroundColor = "#FFC860"
+    $(document).ready(() =>{
+        $('.win-quit').on('mouseleave', () =>{
+            winQuit.style.backgroundColor = ""
+        })
     })
-})
 
-//removing background color on mouseleave to NEXT ROUND button
-$(document).ready(() =>{
-    $('.restart-next').on('mouseleave', () =>{
-        restartNext.style.backgroundColor = ""
+
+
+    //adding background color on mouseenter to NEXT ROUND button
+    $(document).ready(() =>{
+        $('.restart-next').on('mouseenter', () =>{
+            restartNext.style.backgroundColor = "#FFC860"
+        })
     })
-})
 
-//adding background color to QUIT button
-$(document).ready(() =>{
-    $('.restart-quit').on('mouseenter', () =>{
-        restartQuit.style.backgroundColor = "#DBE8ED"
+    //removing background color on mouseleave to NEXT ROUND button
+    $(document).ready(() =>{
+        $('.restart-next').on('mouseleave', () =>{
+            restartNext.style.backgroundColor = ""
+        })
     })
-})
 
-$(document).ready(() =>{
-    $('.restart-quit').on('mouseleave', () =>{
-        restartQuit.style.backgroundColor = ""
+    //adding background color to QUIT button
+    $(document).ready(() =>{
+        $('.restart-quit').on('mouseenter', () =>{
+            restartQuit.style.backgroundColor = "#DBE8ED"
+        })
     })
-})
 
-
-//adding background color on mouseenter to NEXT ROUND button
-$(document).ready(() =>{
-    $('.lost-next').on('mouseenter', () =>{
-        lostNext.style.backgroundColor = "#FFC860"
+    $(document).ready(() =>{
+        $('.restart-quit').on('mouseleave', () =>{
+            restartQuit.style.backgroundColor = ""
+        })
     })
-})
 
-//removing background color on mouseleave to NEXT ROUND button
-$(document).ready(() =>{
-    $('.lost-next').on('mouseleave', () =>{
-        lostNext.style.backgroundColor = ""
+
+    //adding background color on mouseenter to NEXT ROUND button
+    $(document).ready(() =>{
+        $('.lost-next').on('mouseenter', () =>{
+            lostNext.style.backgroundColor = "#FFC860"
+        })
     })
-})
 
-//adding background color to QUIT button
-$(document).ready(() =>{
-    $('.lost-quit').on('mouseenter', () =>{
-        lostQuit.style.backgroundColor = "#DBE8ED"
+    //removing background color on mouseleave to NEXT ROUND button
+    $(document).ready(() =>{
+        $('.lost-next').on('mouseleave', () =>{
+            lostNext.style.backgroundColor = ""
+        })
     })
-})
 
-$(document).ready(() =>{
-    $('.lost-quit').on('mouseleave', () =>{
-        lostQuit.style.backgroundColor = ""
+    //adding background color to QUIT button
+    $(document).ready(() =>{
+        $('.lost-quit').on('mouseenter', () =>{
+            lostQuit.style.backgroundColor = "#DBE8ED"
+        })
     })
-})
 
-
-//adding event listener to RESET button
-$(document).ready(() =>{
-    $('.res').on('mouseenter', () =>{
-        res.style.backgroundColor = "#DBE8ED"
+    $(document).ready(() =>{
+        $('.lost-quit').on('mouseleave', () =>{
+            lostQuit.style.backgroundColor = ""
+        })
     })
-})
 
-$(document).ready(() =>{
-    $('.res').on('mouseleave', () =>{
-        res.style.backgroundColor = ""
+
+    //adding event listener to RESET button
+    $(document).ready(() =>{
+        $('.res').on('mouseenter', () =>{
+            res.style.backgroundColor = "#DBE8ED"
+        })
     })
-})
+
+    $(document).ready(() =>{
+        $('.res').on('mouseleave', () =>{
+            res.style.backgroundColor = ""
+        })
+    })
