@@ -519,7 +519,7 @@ body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 53%;
     transform: translate(0%, -50%);
     background-color: #1F3641;
     display: none;
@@ -617,7 +617,7 @@ body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 53%;
     transform: translate(0%, -50%);
     background-color: #1F3641;
     display: none;
@@ -715,7 +715,7 @@ body {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 53%;
     transform: translate(0%, -50%);
     background-color: #1F3641;
     display: none;
@@ -952,6 +952,11 @@ body {
         height: 40px;
     }
 
+    .popup {
+        height: 228px;
+        top: 56%;
+    }
+
     .popup .lost-mid {
         width: 290px;
         height: 30px;
@@ -987,6 +992,13 @@ body {
         height: 30px;
     }
 
+
+    .popup-x {
+        height: 228px;
+        top: 56%;
+    }
+
+
     .popup-x img{
         height: 40px;
         width: 40px;
@@ -1015,6 +1027,11 @@ body {
         letter-spacing: 0.875px;
         text-align: center;
 
+    }
+
+    .restart {
+        height: 228px;
+        top: 56%;
     }
 
     .restart .restart-para {
