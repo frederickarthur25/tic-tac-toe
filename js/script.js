@@ -488,7 +488,6 @@ change = true;
         turn = true;
         checkTurn(turn);
         restart.style.display = "block";
-        restartPara.innerHTML = "ROUND TIED";
     }
     
     
