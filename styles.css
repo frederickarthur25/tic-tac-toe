@@ -796,22 +796,14 @@ body {
     cursor: pointer;
 }
 
-.xboxblue {
-    background-color: #31C3BD;
-}
-
-.oboxyellow {
-    background-color: #F2B137;
-}
-
 
 .main-container.overlay {
     max-width: 100%;
     height: 100vh;
     display: flex;
     background: #000000;
-    mix-blend-mode: hard-light;
-    opacity: 50%;
+    mix-blend-mode: normal;
+    opacity: 0.5;
     z-index: 1;
 }
 

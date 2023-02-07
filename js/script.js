@@ -37,6 +37,7 @@ restart = document.querySelector(".restart")
 restartPara = document.querySelector(".restart-para")
 
 let turn = true;
+change = true;
 
     $(document).ready(() =>{
         $('#play').on('mouseenter', () =>{
@@ -103,7 +104,7 @@ let turn = true;
         })
     }
 
-    change = true;
+    
 
 
     //multiplayer
@@ -195,7 +196,7 @@ let turn = true;
             ties++
             showScore()
             mainCont.classList.add("overlay")
-            display()
+            display();
         }
         return true
     }
@@ -222,21 +223,22 @@ let turn = true;
             return true;
     }
 
-       function reset(){
-        boxes.forEach(box => {
-            box.innerHTML = "";
-        })
-        winner = false;
-        usedCells = [];
-        player1.played = [];
-        player2.played = [];
-        turn = true
-        checkTurn()
-        setHover()
-    }
 
 
     res.addEventListener("click", reset);
+    
+       function reset(){
+        restart.style.display = "block"
+        inactiveCells()
+        winner = false;
+        turn = true
+        checkTurn()
+        setHover()
+        mainCont.classList.add("overlay")
+    }
+
+
+    
 
     function checkTurn(){
         if(turn){
@@ -261,6 +263,11 @@ let turn = true;
         }
         if(!winner &&  usedCells.length == 9){
             restart.style.display = "block"
+            restartPara.innerHTML = "ROUND TIED"
+            restartQuit.innerHTML = "QUIT"
+            restartQuit.style.width = "76px"
+            restartQuit.style.height = "52px"
+            restartNext.innerText = "NEXT ROUND"
         }
     }
 
@@ -306,6 +313,7 @@ let turn = true;
     
     restartNext.addEventListener("click", ()=>{
             boxes.forEach(box => {
+                box.classList.remove('inactiveCells')
                 box.innerHTML = "" 
              })
              usedCells = [];
@@ -336,13 +344,13 @@ let turn = true;
     let ties = 0;
     
     
-    user1 = {
+    let user1 = {
         symbol : `<img src="icon-x.svg">`,
         played :[],
         score:0
     }
     
-    user2 = {
+    let user2 = {
         symbol : `<img src="icon-o.svg">`,
         played :[],
         score:0
@@ -353,6 +361,22 @@ let turn = true;
     let usedBox = [];
     let emptyCells = [0,1,2,3,4,5,6,7,8];
     let turn = true;
+
+
+    function setHover(){
+        //remove all hover
+        boxes.forEach(box=>{
+            box.classList.remove("o-hover")
+        });
+        const hoverClassO = "o-hover"
+        boxes.forEach(box=>{
+            if(!turn){
+                if(box.innerHTML == ""){
+                    box.classList.add(hoverClassO)
+                }
+            }
+        })
+    }
     
        
         checkTurn(turn)
@@ -360,22 +384,22 @@ let turn = true;
     
         setInterval(bot, 3000);
     
-        for (let i = 0; i < boxes.length; i++){
+        for (let i = 0; i < boxes.length; i++){ //adding symbols to each box
             boxes[i].addEventListener("click", () => {
                 if(!winner){
                     if(isEmpty(i)){
                         if(turn === true){ 
                             if(!computer){
-                                addBoxPlayer(user2, i)
-                            checkWin(user2)
+                                addBoxPlayer(user1, i)
+                            checkWin(user1)
                             }
                             
                         }else{
-                            addBoxPlayer(user1, i)
+                            addBoxPlayer(user2, i)
                             if(computer){
                                 emptyCells.splice(emptyCells.indexOf(i), 1);
                             }
-                            checkWin(user1)
+                            checkWin(user2)
                         }
                         checkTurn(turn)
                     }else{
@@ -387,13 +411,12 @@ let turn = true;
     }
     
     
-    
-    function checkTurn(turn){
+    function checkTurn(turn){ //check whose turn is it to add symbol to the top
         if(usedBox.length < 9 && !winner){
             if(turn){
-                img.innerHTML = user2.symbol
-            }else{
                 img.innerHTML = user1.symbol
+            }else{
+                img.innerHTML = user2.symbol
             }
         }else{
             img.innerHTML = ""
@@ -411,7 +434,7 @@ let turn = true;
         [2,4,6],
     ];
     
-    function checkWin(user){
+    function checkWin(user){//looping through all win conditions
         if(!winner){
             winningCombinations.some(combo => {
                 if(combo.every((i) => user.played.includes(i))){
@@ -425,12 +448,12 @@ let turn = true;
                 }
             });
         } 
-        if(!winner &&  usedBox.length == 9){
+        if(!winner &&  usedBox.length == 9){//checking for draw
             ties++;
             display()
             showScore();
             mainCont.classList.add("overlay")
-        }
+            }
     }
     
 
@@ -438,35 +461,37 @@ let turn = true;
     function highlight(combo){
         combo.forEach(index =>{
            if(turn){
-            boxes[index].classList.add('highlight-x')
-            boxes[index].innerHTML = `<img src="cross.png">`
-           }else{
             boxes[index].classList.add('highlight-o')
             boxes[index].innerHTML = `<img src="Black_circle.png">`
+           }else{
+            boxes[index].classList.add('highlight-x')
+            boxes[index].innerHTML = `<img src="cross.png">`
            }
         })
     }
-    function isEmpty(i){
+
+
+    function isEmpty(i){ //checking if a box is empty or has been filled
         if(usedBox.includes(i)){
             return false;
         }
         return true;
     }
     
+
+    res.addEventListener("click", reset)
+
     function reset(){
-        boxes.forEach(box => {
-           box.innerHTML = "" 
-        })
-        usedBox = [];
-        user1.played = [];
-        user2.played = [];
-        emptyCells = [0,1,2,3,4,5,6,7,8];
-        winner = false
+        inactiveCells();
+        computer = false;
+        winner = false;
         turn = true;
-        checkTurn(turn)
+        checkTurn(turn);
+        restart.style.display = "block";
+        restartPara.innerHTML = "ROUND TIED";
     }
     
-    res.addEventListener("click", reset)
+    
     
     
     
@@ -478,7 +503,7 @@ let turn = true;
         else{turn = true}   
     }
     
-    function showScore(){
+    function showScore(){//show score after a game has been won or drawn
         num1.innerHTML = user1.score
         num3.innerHTML = user2.score
         num2.innerHTML = ties;
@@ -492,7 +517,12 @@ let turn = true;
         }
         if(!winner &&  usedBox.length == 9){
             restart.style.display = "block"
+            popUp.style.display = "none"
             restartPara.innerHTML = "ROUND TIED"
+            restartQuit.innerHTML = "QUIT"
+            restartQuit.style.width = "76px"
+            restartQuit.style.height = "52px"
+            restartNext.innerText = "NEXT ROUND"
         }
     }
     
@@ -500,9 +530,9 @@ let turn = true;
     function bot(){ //ading a bot function
     if(computer && !winner && turn){
         let random = Math.floor(Math.random() * emptyCells.length);
-        addBoxPlayer(user2, emptyCells[random]);
+        addBoxPlayer(user1, emptyCells[random]);
         emptyCells.splice(random,1);
-        checkWin(user2);
+        checkWin(user1);
         checkTurn(turn)
     }
     //console.log(emptyCells)
@@ -510,11 +540,14 @@ let turn = true;
     }
     bot();
 
+
+
+
     winNext.addEventListener("click", ()=>{
     boxes.forEach(box => {
         box.innerHTML = "" 
         box.classList.remove('inactiveCells')
-        box.classList.remove('highlight-x')
+        box.classList.remove('highlight-o')
      })
      usedBox = [];
      user1.played = [];
@@ -528,11 +561,13 @@ let turn = true;
      setHover()
     })
 
+
+
     lostNext.addEventListener("click", ()=>{
     boxes.forEach(box => {
         box.innerHTML = "" 
         box.classList.remove('inactiveCells')
-        box.classList.remove('highlight-o')
+        box.classList.remove('highlight-x')
      })
      usedBox = [];
      user1.played = [];
@@ -550,12 +585,14 @@ let turn = true;
     restartNext.addEventListener("click", ()=>{
         boxes.forEach(box => {
             box.innerHTML = "" 
+            box.classList.remove('inactiveCells')
          })
          usedBox = [];
          user1.played = [];
          user2.played = [];
          emptyCells = [0,1,2,3,4,5,6,7,8];
          turn = true;
+         computer = true;
          checkTurn(turn)
          restart.style.display = "none"
          popUp.style.display = "none"
