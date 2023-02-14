@@ -410,6 +410,14 @@ change = true;
             })
     }
     
+
+    function addBoxPlayer(user, i){
+        boxes[i].innerHTML = user.symbol;
+        user.played.push(i);
+        usedBox.push(i); 
+        if(turn === true){turn = false}
+        else{turn = true}   
+    }
     
     function checkTurn(turn){ //check whose turn is it to add symbol to the top
         if(usedBox.length < 9 && !winner){
@@ -490,17 +498,7 @@ change = true;
         restart.style.display = "block";
     }
     
-    
-    
-    
-    
-    function addBoxPlayer(user, i){
-        boxes[i].innerHTML = user.symbol;
-        user.played.push(i);
-        usedBox.push(i); 
-        if(turn === true){turn = false}
-        else{turn = true}   
-    }
+
     
     function showScore(){//show score after a game has been won or drawn
         num1.innerHTML = user1.score
