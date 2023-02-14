@@ -507,7 +507,7 @@ change = true;
     }
     
     function display(){
-        if(turn){
+        if(!turn){
             popUpX.style.display = "block"
         }else{
             popUp.style.display = "block"
@@ -544,7 +544,7 @@ change = true;
     boxes.forEach(box => {
         box.innerHTML = "" 
         box.classList.remove('inactiveCells')
-        box.classList.remove('highlight-o')
+        box.classList.remove('highlight-x')
      })
      usedBox = [];
      user1.played = [];
@@ -564,7 +564,7 @@ change = true;
     boxes.forEach(box => {
         box.innerHTML = "" 
         box.classList.remove('inactiveCells')
-        box.classList.remove('highlight-x')
+        box.classList.remove('highlight-o')
      })
      usedBox = [];
      user1.played = [];
