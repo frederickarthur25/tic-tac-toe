@@ -29,4 +29,3 @@ Minimax algorithm: In layman's words,this algorithm sees a few steps ahead and p
 3.call the minimax function on each available spot (recursion) 
 4.evaluate returning values from function calls 
 5.and return the best value
->>>>>>> 8f8ff7421557daa54f05aea3b9ede1c322034942
