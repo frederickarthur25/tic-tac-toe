@@ -189,6 +189,7 @@ change = true;
                     display()  
                     highlight(combo)
                     inactiveCells()
+                    playBoard.classList.add('inactiveBoard')
                 }
             })
         }
@@ -197,6 +198,7 @@ change = true;
             showScore()
             mainCont.classList.add("overlay")
             display();
+            playBoard.classList.add('inactiveBoard')
         }
         return true
     }
@@ -288,6 +290,7 @@ change = true;
          checkTurn()
          popUpX.style.display = "none"
          setHover()
+         playBoard.classList.remove('inactiveBoard')
     })
     
 
@@ -308,6 +311,7 @@ change = true;
          popUp.style.display = "none"
          mainCont.classList.remove("overlay")
          setHover()
+         playBoard.classList.remove('inactiveBoard')
     })
 
     
@@ -329,11 +333,12 @@ change = true;
              popUp.style.display = "none"
              popUpX.style.display = "none"
              setHover()
+             playBoard.classList.remove('inactiveBoard')
     })
 }
 
 
-
+/*
 
     //solo vs computer
     botButton.onclick = ()=>{
@@ -453,6 +458,7 @@ change = true;
                     mainCont.classList.add("overlay")
                     inactiveCells()
                     highlight(combo)
+                    playBoard.classList.add('inactiveBoard')
                 }
             });
         } 
@@ -461,6 +467,7 @@ change = true;
             display()
             showScore();
             mainCont.classList.add("overlay")
+            playBoard.classList.add('inactiveBoard')
             }
     }
     
@@ -485,7 +492,57 @@ change = true;
         }
         return true;
     }
-    
+
+
+    function minimax(newBoard, player){
+        var availSpots = emptySquares(newBoard);
+        if (checkWin(newBoard, player)){
+            return {score:-10};
+        }else if (checkWin(newBoard, aiPlayer)){
+            return {score: 20};
+        }else if (availSpots.length === 0){
+            return {score: 0};
+        }
+        var moves = [];
+        for(var i = 0; i < availSpots.length; i++){
+            var move = {};
+            move.index = newBoard[availSpots[i]];
+            newBoard[availSpots[i]] = player;
+
+            if (player === aiPlayer){
+                var result = minimax(newBoard, huPlayer);
+                move.score = result.score;
+            }else{
+                var result = minimax(newBoard, aiPlayer);
+                move.score = result.score;
+            }
+            newBoard[availSpots[i]] = move.index;
+
+            moves.push(move);
+        }
+
+        var bestMove;
+        if (player === aiPlayer){
+            var bestScore = -10000;
+            for(var i = 0; i < moves.length; i++){
+                if (moves[i].score > bestScore){
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }else{
+            var bestScore = 10000;
+            for(var i = 0; i < moves.length; i++){
+                if (moves[i].score < bestScore){
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        return moves[bestMove];
+    }
+   
 
     res.addEventListener("click", reset)
 
@@ -556,6 +613,7 @@ change = true;
      popUpX.style.display = "none"
      mainCont.classList.remove("overlay")
      setHover()
+     playBoard.classList.remove('inactiveBoard')
     })
 
 
@@ -576,6 +634,7 @@ change = true;
     popUp.style.display = "none"
     mainCont.classList.remove("overlay")
     setHover()
+    playBoard.classList.remove('inactiveBoard')
     })
 
 
@@ -596,9 +655,12 @@ change = true;
          popUpX.style.display = "none"
          mainCont.classList.remove("overlay")
          setHover()
+         playBoard.classList.remove('inactiveBoard')
         })
-}
 
+        
+}
+*/
 
     winQuit.onclick = () => {
         location.reload()

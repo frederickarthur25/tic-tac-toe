@@ -251,6 +251,10 @@ body {
     display: none;
 }
 
+.play-board.inactiveBoard{
+    pointer-events: none;
+}
+
 .cont {
     position: absolute;
     left: 50%;
