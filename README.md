@@ -3,6 +3,12 @@ Created a Tic-Tac-Toe game using HTML ,CSS , Javascript and used minmax algorith
 
 Tic-Tac-Toe is a simple, two-player game that, if played optimally by both players, will always result in a tie. The game is also called noughts and crosses or Xs and Os.
 
+#TECHNOLOGIES USED
+1. HTML
+2. CSS
+3. JAVASCRIPT
+4. JQUERY
+
 Rules:
 
 In a 3-by-3 grid game, the player who is playing "X" always goes first. Players alternate placing Xs and Os on the board until either player has three in a row, horizontally, vertically, or diagonally or until all squares on the grid are filled. If a player is able to draw three Xs or three Os in a row, then that player wins. If all squares are filled and neither player has made a complete row of Xs or Os, then the game is a draw.
