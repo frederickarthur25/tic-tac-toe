@@ -93,7 +93,6 @@
            for (let i = 0; i < winningCombinations.length; i++){
             if (plays.includes(winningCombinations[i][0]) && plays.includes(winningCombinations[i][1]) && plays.includes(winningCombinations[i][2])) {
                 gameWon = {i, player};
-                aiScore++;
                 break;
                 
             }
