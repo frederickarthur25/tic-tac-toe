@@ -23,9 +23,4 @@ Minimax algorithm: In layman's words,this algorithm sees a few steps ahead and p
 3. Call the minimax function on each available spot (recursion) 
 4. Evaluate returning values from function calls 
 5. And return the best value
-=======
-1.return a value if a terminal state is found (+10, 0, -10) 
-2.go through available spots on the board 
-3.call the minimax function on each available spot (recursion) 
-4.evaluate returning values from function calls 
-5.and return the best value
+
