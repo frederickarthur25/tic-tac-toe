@@ -123,7 +123,7 @@
 
     // Returns number of empty spots on board
     function emptySquares(){
-        return origBoard.filter((s) => typeof s == 'number');
+        return origBoard.filter(s => typeof s == 'number');
     }
 
     // AI uses minimax algorithm to find the best spot
@@ -219,7 +219,8 @@
     }
     
 
-    function showScore(){//show score after a game has been won or drawn
+    //show score after a game has been won or drawn
+    function showScore(){
         num3.innerHTML = aiScore
         num2.innerHTML = ties;
     }
