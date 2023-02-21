@@ -17,16 +17,8 @@ In a 3-by-3 grid game, the player who is playing "X" always goes first. Players 
 About AI player: AI is used to play optimally against human player.In a two-player (A vs B) game, if player A scores x points (utility units), player B loses x points. Total gains/losses always sum up to 0.With that in mind, let’s proceed to the Minimax algorithm that’s suited for such cases. Minimax is a kind of backtracking algorithm that is used in decision making and game theory to find the optimal move for a player, assuming that your opponent also plays optimally. It is widely used in two player turn-based games such as Tic-Tac-Toe, Backgammon, Mancala, Chess, etc
 
 Minimax algorithm: In layman's words,this algorithm sees a few steps ahead and puts itself in the shoes of its opponent. It keeps playing ahead until it reaches a terminal arrangement of the board (terminal state) resulting in a tie, a win, or a loss. Once in a terminal state, the AI will assign an arbitrary positive score (+10) for a win, a negative score (-10) for a loss, or a neutral score (0) for a tie.At the same time, the algorithm evaluates the moves that lead to a terminal state based on the players’ turn. It will choose the move with maximum score when it is the AI’s turn and choose the move with the minimum score when it is the human player’s turn. Using this strategy, Minimax avoids losing to the human player. A Minimax algorithm can be best defined as a recursive function that does the following things: 
-<<<<<<< HEAD
 1. Return a value if a terminal state is found (+10, 0, -10) 
 2. Go through available spots on the board 
 3. Call the minimax function on each available spot (recursion) 
 4. Evaluate returning values from function calls 
 5. And return the best value
-=======
-1.return a value if a terminal state is found (+10, 0, -10) 
-2.go through available spots on the board 
-3.call the minimax function on each available spot (recursion) 
-4.evaluate returning values from function calls 
-5.and return the best value
->>>>>>> 8f8ff7421557daa54f05aea3b9ede1c322034942

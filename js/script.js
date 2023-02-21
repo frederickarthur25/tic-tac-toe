@@ -35,6 +35,8 @@ slider = document.querySelector(".slider")
 slider2 = document.querySelector(".slider2")
 restart = document.querySelector(".restart")
 restartPara = document.querySelector(".restart-para")
+iconO = document.querySelector(".icon-o")
+iconX = document.querySelector(".icon-x")
 
 let turn = true;
 change = true;
@@ -74,6 +76,27 @@ change = true;
             slider2.style.backgroundColor = "" 
         })
     })
+
+
+    slider2.onclick = ()=>{
+        if(change){
+            slider.classList.add('active');
+            slider2.style.left = '210px'
+            iconO.classList.add('active');
+            iconX.classList.add('active');
+            playerActive.innerText = 'Remember: O goes first';
+            change = false;
+        }else{
+            slider.classList.remove('active');
+            slider2.style.left = '8px'
+            iconO.classList.remove('active');
+            iconX.classList.remove('active');
+            playerActive.innerText = 'Remember: X goes first';
+            change = true;
+        }
+
+    }
+    
 
     function setHover(){
         //remove all hover

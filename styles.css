@@ -102,7 +102,6 @@ body {
     border-radius: 10px;
     background-color: #1A2A33;
     z-index: 1;
-    display: block;
     cursor: pointer;
 }
 
@@ -155,7 +154,7 @@ body {
     width: 32px;
     position: absolute;
     top: 20px;
-    left: 20%;
+    left: 21%;
     cursor: default;
     z-index: 5;
     filter: grayscale(80%) brightness(100%);
@@ -786,20 +785,6 @@ body {
     cursor: pointer;
 }
 
-.win-next .active:hover {
-    background-color: #65E9E4;
-    cursor: pointer;
-    transform: scale(0.96);
-    cursor: pointer;
-}
-
-.lost-next .active:hover {
-    background-color: #FFC860;
-    cursor: pointer;
-    transform: scale(0.96);
-    cursor: pointer;
-}
-
 
 .main-container.overlay {
     max-width: 100%;
@@ -840,7 +825,6 @@ body {
         top: 50%;
         transform: translate(-50%, -50%);
         transition: all 0.3s ease-in;
-        
     }
 
     .mid-portion {
