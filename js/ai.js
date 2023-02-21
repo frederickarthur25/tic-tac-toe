@@ -64,10 +64,10 @@
     // Starts Turns Based on Human Click
     function turnClick(square) {
         if(typeof origBoard[square.target.id] == 'number'){
-            tap(square.target.id, huPlayer)
-            checkTurn()
+            tap(square.target.id, huPlayer);
+            checkTurn();
             if(!checkTie()) 
-                    tap(bestSpot(), aiPlayer)
+                    tap(bestSpot(), aiPlayer);
         }
         setHover()
     }
